@@ -1,0 +1,64 @@
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.centered-div {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.image-left {
+  max-width: 100%;
+  height: auto;
+}
+
+:host ::ng-deep .ant-layout-content {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.rounded-input {
+  height: 3.5em;
+  border-radius: 20px;
+  background-color: #edecff; 
+}
+
+.button-center {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-style {
+  width: 13em;
+  height: 3.2em;
+  border-radius: 20px;
+  background-color: #5958A9;
+}
+
+.button-style:hover {
+  background-color: #504CA6;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.custom-border-input {
+  border-color: #5958A9;
+}
+
+.custom-border-input:focus {
+  border-color: #504CA6; 
+  box-shadow: 0 0 5px rgba(80, 76, 166, 0.5);
+}
