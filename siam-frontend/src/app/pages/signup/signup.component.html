@@ -1,0 +1,40 @@
+<nz-layout class="centered-container">
+    <nz-content>
+    <div class="centered-div">
+      <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+          <h1 class="main-title">Sistema Inteligente de Administração de Medicamentos</h1>
+          <nz-col nzXs="24" nzMd="12">
+            <img src="login_signup_image.png" alt="Imagem" class="image-left" />
+          </nz-col>
+          <nz-col nzXs="24" nzMd="12">
+            <h2 class="center-text">Criar sua conta</h2>
+            <form nz-form nzLayout="vertical">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'name'" nzRequired>Nome completo</nz-form-label>
+                <nz-form-control>
+                  <input nz-input id="name" name="name" class="rounded-input custom-border-input" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzFor]="'username'" nzRequired>Usuário</nz-form-label>
+                <nz-form-control>
+                  <input nz-input id="username" name="username" class="rounded-input custom-border-input" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzFor]="'password'" nzRequired>Senha</nz-form-label>
+                <nz-form-control>
+                  <input nz-input id="password" type="password" name="password" class="rounded-input custom-border-input" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="button-center">
+                <button nz-button class="button-style" nzType="primary">Criar conta</button>
+              </nz-form-item>
+            </form>
+            <p class="center-text">Já possui conta? <a routerLink="/login">Entrar na sua conta</a></p>
+          </nz-col>
+        </nz-row>
+      </div>
+    </nz-content>
+  </nz-layout>
+  
