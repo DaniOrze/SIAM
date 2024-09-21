@@ -1,0 +1,137 @@
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+    <h2>Cadastro de Responsáveis</h2>
+  </nz-row>
+  
+  <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+    <div class="form-container">
+      <form nz-form nzLayout="vertical">
+        <!-- Primeira linha de campos fixos -->
+        <nz-row [nzGutter]="16">
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'fullName'" nzRequired>Nome Completo</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="fullName" name="fullName" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'cpf'" nzRequired>CPF</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="cpf" name="cpf" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+  
+        <!-- Segunda linha de campos fixos -->
+        <nz-row [nzGutter]="16">
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'rg'" >RG</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="rg" name="rg" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'birthdate'" nzRequired>Data de Nascimento</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="birthdate" name="birthdate" class="rounded-input custom-border-input" type="date" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+  
+        <!-- Terceira linha de campos de contato -->
+        <nz-row [nzGutter]="16">
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'phoneNumber'" nzRequired>Telefone</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="phoneNumber" name="phoneNumber" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'email'" nzRequired>Email</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="email" name="email" class="rounded-input custom-border-input" type="email" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+  
+        <!-- Quarta linha de endereço -->
+        <nz-row [nzGutter]="16">
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'address'" nzRequired>Endereço</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="address" name="address" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="6">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'city'" nzRequired>Cidade</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="city" name="city" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="6">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'zipCode'" nzRequired>CEP</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="zipCode" name="zipCode" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+  
+        <!-- Login e senha -->
+        <nz-row [nzGutter]="16">
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'username'" nzRequired>Nome de Usuário</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="username" name="username" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'password'" nzRequired>Senha</nz-form-label>
+              <nz-form-control>
+                <input nz-input id="password" name="password" type="password" class="rounded-input custom-border-input" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+  
+        <!-- Observações -->
+        <nz-row [nzGutter]="16">
+          <nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-label [nzFor]="'observations'">Observações</nz-form-label>
+              <nz-form-control>
+                <nz-textarea-count [nzMaxCharacterCount]="1000">
+                  <textarea id="observations" name="observations" class="text-input custom-border-input" nz-input rows="4" placeholder="Escreva as observações aqui"></textarea>
+                </nz-textarea-count>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+  
+        <!-- Botão de envio -->
+        <nz-form-item class="button-center">
+          <button nz-button class="button-style custom-border-input" nzType="primary">Cadastrar Responsável</button>
+        </nz-form-item>
+      </form>
+    </div>
+  </nz-row>
+  
