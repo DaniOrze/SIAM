@@ -16,10 +16,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/welcome/welcome.component').then(m => m.WelcomeComponent)
       },
       {
-        path: 'medication-dispensation',
-        loadComponent: () => import('./pages/medication-dispensation/medication-dispensation.component').then(m => m.MedicationDispensationComponent)
-      },
-      {
         path: 'alerts',
         loadComponent: () => import('./pages/alerts/alerts.component').then(m => m.AlertsComponent)
       },
@@ -42,6 +38,14 @@ export const routes: Routes = [
       {
         path: 'new-user',
         loadComponent: () => import('./pages/new-user/new-user.component').then(m => m.NewUserComponent)
+      },
+      {
+        path: 'new-medication',
+        loadComponent: () => import('./pages/new-medication/new-medication.component').then(m => m.NewMedicationComponent)
+      },
+      {
+        path: 'medication-management',
+        loadComponent: () => import('./pages/medication-management/medication-management.component').then(m => m.MedicationManagementComponent)
       }
     ]
   }
