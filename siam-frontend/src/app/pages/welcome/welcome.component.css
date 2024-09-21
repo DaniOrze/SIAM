@@ -1,0 +1,28 @@
+.dashboard-chart {
+  height: 300px;
+  width: 100%;
+}
+
+nz-card {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+ul {
+  padding-left: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+
+.card-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-col {
+  flex: 1;
+  display: flex;
+}

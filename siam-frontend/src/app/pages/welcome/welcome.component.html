@@ -1,1 +1,60 @@
-<p>welcome works!</p>
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+    <h2>Painel de Saúde e Medicamentos</h2>
+  </nz-row>
+
+  <div class="card-row" nz-row [nzGutter]="16">
+    <div nz-col nzSpan="12" class="card-col">
+      <nz-card nzTitle="Próximo Medicamento">
+        <ul>
+          <li><strong>Medicamento:</strong> Paracetamol</li>
+          <li><strong>Horário:</strong> 14:00</li>
+        </ul>
+      </nz-card>
+    </div>
+    <div nz-col nzSpan="12" class="card-col">
+      <nz-card nzTitle="Medicamentos do Dia">
+        <ul>
+          <li><strong>Medicamento:</strong> Ibuprofeno (08:00)</li>
+          <li><strong>Medicamento:</strong> Omeprazol (12:00)</li>
+          <li><strong>Medicamento:</strong> Paracetamol (14:00)</li>
+          <li><strong>Medicamento:</strong> Amoxicilina (20:00)</li>
+        </ul>
+      </nz-card>
+    </div>
+  </div>
+  
+
+<div class="card-row" nz-row [nzGutter]="16">
+    <div nz-col nzSpan="12" class="card-col">
+      <nz-card nzTitle="Dispensação de Medicamentos">
+        <div echarts [options]="medicationChartOptions" class="dashboard-chart"></div>
+      </nz-card>
+    </div>
+    
+    <div nz-col nzSpan="12" class="card-col">
+      <nz-card nzTitle="Adesão ao Tratamento">
+        <div echarts [options]="adherenceChartOptions" class="dashboard-chart"></div>
+      </nz-card>
+    </div>
+  </div>
+  
+  <div class="card-row" nz-row [nzGutter]="16">
+    <div nz-col nzSpan="12" class="card-col">
+      <nz-card nzTitle="Alertas Recentes">
+        <ul>
+          <li>Alerta: Medicamento X não foi dispensado</li>
+          <li>Alerta: Paciente Y não tomou o remédio</li>
+        </ul>
+      </nz-card>
+    </div>
+    
+    <div nz-col nzSpan="12" class="card-col">
+      <nz-card nzTitle="Ações Pendentes">
+        <ul>
+          <li>Revisar dispensação do paciente Z</li>
+          <li>Checar estoque de medicamentos</li>
+        </ul>
+      </nz-card>
+    </div>
+  </div>
+  
