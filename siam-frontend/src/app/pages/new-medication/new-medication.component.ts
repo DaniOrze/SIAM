@@ -11,7 +11,7 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, Validators } from '@ang
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-medication-dispensation',
+  selector: 'app-new-medication',
   standalone: true,
   imports: [
     NzLayoutModule,
@@ -24,10 +24,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     NzCheckboxModule],
-  templateUrl: './medication-dispensation.component.html',
-  styleUrls: ['./medication-dispensation.component.css']
+  templateUrl: './new-medication.component.html',
+  styleUrl: './new-medication.component.css'
 })
-export class MedicationDispensationComponent implements OnInit {
+export class NewMedicationComponent implements OnInit {
   medicationForm!: FormGroup;
   days: string[] = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']; 
   checkOptions: Array<{ label: string, value: string, checked: boolean }> = [];
