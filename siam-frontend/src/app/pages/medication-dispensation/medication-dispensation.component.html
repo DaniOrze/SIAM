@@ -1,102 +1,91 @@
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-    <h2>Cadastro de Medicamento</h2>
-  </nz-row>
-  
-  <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-    <div class="form-container">
-      <form nz-form nzLayout="vertical">
-        <!-- Primeira linha de campos fixos -->
-        <nz-row [nzGutter]="16">
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'name'" nzRequired>Nome do Medicamento</nz-form-label>
-              <nz-form-control>
-                <input nz-input id="name" name="name" class="rounded-input custom-border-input" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'dosage'" nzRequired>Dosagem do Medicamento (mg)</nz-form-label>
-              <nz-form-control>
-                <input nz-input id="dosage" name="dosage" class="rounded-input custom-border-input"/>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-  
-        <nz-row *ngFor="let frequencia of frequencias; let i = index" [nzGutter]="16">
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'administrationTime' + i" nzRequired>Horário de Administração</nz-form-label>
-              <nz-form-control>
-                <input nz-input [id]="'administrationTime' + i" [(ngModel)]="frequencia.administrationTime" name="administrationTime{{i}}" class="rounded-input custom-border-input" type="time" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col nzSpan="10">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'frequency' + i" nzRequired>Frequência da Dosagem</nz-form-label>
-              <nz-form-control>
-                <nz-select [(ngModel)]="frequencia.frequency" [id]="'frequency' + i" name="frequency{{i}}" class="rounded-input custom-border-input" nzPlaceHolder="Selecione a frequência">
-                  <nz-option nzValue="4h" nzLabel="A cada 4 horas"></nz-option>
-                  <nz-option nzValue="6h" nzLabel="A cada 6 horas"></nz-option>
-                  <nz-option nzValue="8h" nzLabel="A cada 8 horas"></nz-option>
-                  <nz-option nzValue="12h" nzLabel="A cada 12 horas"></nz-option>
-                  <nz-option nzValue="24h" nzLabel="Diariamente"></nz-option>
-                  <nz-option nzValue="weekly" nzLabel="Semanalmente"></nz-option>
-                  <nz-option nzValue="monthly" nzLabel="Mensalmente"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col nzSpan="2" *ngIf="i === frequencias.length - 1">
-            <nz-form-item>
-              <button nz-button class="button-style" nzType="primary" (click)="adicionarFrequencia()">+</button>
-              <button nz-button class="button-style" nzType="primary" (click)="removerFrequencia(i)" *ngIf="frequencias.length > 1">-</button>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-  
-        <!-- Campos fixos adicionais -->
-        <nz-row [nzGutter]="16">
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'startDate'" nzRequired>Data de Início</nz-form-label>
-              <nz-form-control>
-                <input nz-input id="startDate" name="startDate" class="rounded-input custom-border-input" type="date" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'endDate'" nzRequired>Data de Fim</nz-form-label>
-              <nz-form-control>
-                <input nz-input id="endDate" name="endDate" class="rounded-input custom-border-input" type="date" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-  
-        <!-- Observações -->
-        <nz-row [nzGutter]="16">
-          <nz-col nzSpan="24">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'observations'" nzRequired>Observações</nz-form-label>
-              <nz-form-control>
-                <nz-textarea-count [nzMaxCharacterCount]="2000">
-                  <textarea id="observations" name="observations" class="rounded-input custom-border-input" nz-input rows="4" placeholder="Escreva as observações aqui"></textarea>
-                </nz-textarea-count>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-  
-        <!-- Botão de Adicionar Medicamento -->
-        <nz-form-item class="button-center">
-          <button nz-button class="button-style" nzType="primary">Adicionar Medicamento</button>
-        </nz-form-item>
-      </form>
-    </div>
-  </nz-row>
-  
+  <h2>Cadastro de Medicamento</h2>
+</nz-row>
+
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <div class="form-container">
+    <form [formGroup]="medicationForm" nz-form nzLayout="vertical" (ngSubmit)="onSubmit()">
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'name'" nzRequired>Nome do Medicamento</nz-form-label>
+            <nz-form-control>
+              <input nz-input id="name" formControlName="name" class="rounded-input custom-border-input" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'dosage'" nzRequired>Dosagem do Medicamento (mg)</nz-form-label>
+            <nz-form-control>
+              <input nz-input id="dosage" formControlName="dosage" class="rounded-input custom-border-input"/>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+      
+      <nz-row formArrayName="administrationSchedules" *ngFor="let schedule of administrationSchedules.controls; let i = index" [nzGutter]="16">
+        <nz-col nzSpan="12">
+          <nz-form-item [formGroupName]="i">
+            <nz-form-label>Horário de Administração</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="time" type="time" class="rounded-input custom-border-input" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <nz-form-item [formGroupName]="i">
+            <nz-form-label>Dias da Semana</nz-form-label>
+            <nz-form-control>
+              <nz-checkbox-group formControlName="daysOfWeek" ></nz-checkbox-group>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="24" class="nz-col-buttons">
+          <nz-form-item>
+            <div class="button-container">
+              <button nz-button nzType="primary" (click)="removerHorario(i)" class="button-style custom-border-input">Remover</button>
+              <button nz-button nzType="primary" (click)="adicionarHorario()" class="button-style custom-border-input">Adicionar</button>
+            </div>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+      
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'startDate'" nzRequired>Data de Início</nz-form-label>
+            <nz-form-control>
+              <input nz-input id="startDate" formControlName="startDate" class="rounded-input custom-border-input" type="date" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'endDate'" nzRequired>Data de Fim</nz-form-label>
+            <nz-form-control>
+              <input nz-input id="endDate" formControlName="endDate" class="rounded-input custom-border-input" type="date" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+      
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'observations'">Observações</nz-form-label>
+            <nz-form-control>
+              <nz-textarea-count [nzMaxCharacterCount]="2000">
+                <textarea id="observations" name="observations" nz-input rows="4" placeholder="Escreva as observações aqui" class="text-input custom-border-input" ></textarea>
+              </nz-textarea-count>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
+      <nz-form-item class="button-center">
+        <button nz-button nzType="primary" type="submit" class="button-style custom-border-input" >Adicionar Medicamento</button>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-row>
