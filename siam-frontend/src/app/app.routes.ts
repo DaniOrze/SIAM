@@ -40,12 +40,20 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/new-user/new-user.component').then(m => m.NewUserComponent)
       },
       {
+        path: 'medication-management',
+        loadComponent: () => import('./pages/medication-management/medication-management.component').then(m => m.MedicationManagementComponent)
+      },
+      {
         path: 'new-medication',
         loadComponent: () => import('./pages/new-medication/new-medication.component').then(m => m.NewMedicationComponent)
       },
       {
-        path: 'medication-management',
-        loadComponent: () => import('./pages/medication-management/medication-management.component').then(m => m.MedicationManagementComponent)
+        path: 'personal-info',
+        loadComponent: () => import('./pages/personal-info/personal-info.component').then(m => m.PersonalInfoComponent)
+      },
+      {
+        path: 'security',
+        loadComponent: () => import('./pages/security/security.component').then(m => m.SecurityComponent)
       }
     ]
   }

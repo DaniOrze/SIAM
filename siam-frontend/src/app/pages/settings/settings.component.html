@@ -1,1 +1,36 @@
-<p>settings works!</p>
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+    <h2>Configurações de Conta</h2>
+  </nz-row>
+  
+  <nz-row nzGutter="16" class="card-container">
+    <!-- Seção de Informações Pessoais -->
+    <nz-col nzSpan="8">
+      <nz-card nzHoverable nzTitle="Informações Pessoais" class="custom-card">
+        <p>Atualize seu nome, email e telefone.</p>
+        <a routerLink="/personal-info">
+          <button nz-button nzType="primary" class="button-style custom-border-input">Editar</button>
+        </a>
+      </nz-card>
+    </nz-col>
+  
+    <!-- Seção de Segurança -->
+    <nz-col nzSpan="8">
+      <nz-card nzHoverable nzTitle="Segurança" class="custom-card">
+        <p>Altere sua senha e configure opções de segurança.</p>
+        <a routerLink="/security">
+          <button nz-button nzType="primary" class="button-style custom-border-input">Configurar</button>
+        </a>
+      </nz-card>
+    </nz-col>
+  
+    <!-- Seção de Preferências Gerais (Opcional) -->
+    <nz-col nzSpan="8">
+      <nz-card nzHoverable nzTitle="Preferências Gerais" class="custom-card">
+        <p>Configure temas e preferências gerais.</p>
+        <a routerLink="/settings/preferences">
+          <button nz-button nzType="primary" class="button-style custom-border-input">Definir</button>
+        </a>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  
