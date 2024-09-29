@@ -9,7 +9,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms'; 
 
 @Component({
-  selector: 'app-new-user',
+  selector: 'app-security',
   standalone: true,
   imports: [
     NzLayoutModule,
@@ -19,20 +19,17 @@ import { FormsModule } from '@angular/forms';
     NzButtonModule,
     CommonModule,
     NzSelectModule,
-    FormsModule],
-  templateUrl: './new-user.component.html',
-  styleUrl: './new-user.component.css'
+    FormsModule
+  ],
+  templateUrl: './security.component.html',
+  styleUrl: './security.component.css'
 })
-export class NewUserComponent {
+export class SecurityComponent {
 
-  frequencias: any[] = [{ administrationTime: '', frequency: '' }];
-
-  adicionarFrequencia() {
-    this.frequencias.push({ administrationTime: '', frequency: '' });
-  }
-
-  removerFrequencia(index: number) {
-    this.frequencias.splice(index, 1);
-  }
+  users = [
+    { id: 1, name: 'Usuário 1' },
+    { id: 2, name: 'Usuário 2' },
+    // Adicione mais usuários conforme necessário
+  ];
 
 }
