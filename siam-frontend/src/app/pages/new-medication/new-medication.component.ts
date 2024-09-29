@@ -30,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class NewMedicationComponent implements OnInit {
   medicationForm!: FormGroup;
   days: string[] = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']; 
-  checkOptions: Array<{ label: string, value: string, checked: boolean }> = [];
+  checkOptions: { label: string, value: string, checked: boolean }[] = [];
 
   constructor(private fb: FormBuilder) {}
 
@@ -65,8 +65,8 @@ export class NewMedicationComponent implements OnInit {
   onSubmit() {
     const formValue = this.medicationForm.value;
 
-    const schedules = (formValue.administrationSchedules as Array<{ time: string, daysOfWeek: Array<{ value: string, label: string, checked: boolean }> }>).map(schedule => {
-      const selectedDays = (schedule.daysOfWeek as Array<{ value: string, label: string, checked: boolean }>)
+    const schedules = (formValue.administrationSchedules as { time: string, daysOfWeek: { value: string, label: string, checked: boolean }[] }[]).map(schedule => {
+      const selectedDays = (schedule.daysOfWeek as { value: string, label: string, checked: boolean }[])
         .filter((day: { value: string, label: string, checked: boolean }) => day.checked)
         .map((day: { value: string, label: string, checked: boolean }) => day.value);
       
