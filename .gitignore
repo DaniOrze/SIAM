@@ -1,1 +1,5 @@
 .DS_Store
+
+/siam-backend/src/config/dbConfig.ts
+/siam-backend/src/config/jwtConfig.ts
+/siam-backend/src/config/swagger.ts
