@@ -1,2 +1,6 @@
 # Node
 /node_modules
+
+dbConfig.ts
+jwtConfig.ts
+swagger.ts
