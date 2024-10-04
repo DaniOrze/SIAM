@@ -4,34 +4,92 @@
 
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
   <div class="form-container">
-      <nz-table #responsaveisTable [nzData]="responsaveis" nzBordered class="table-full-width">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let responsavel of responsaveis">
-            <td>{{ responsavel.nome }}</td>
-            <td>{{ responsavel.telefone }}</td>
-            <td>{{ responsavel.email }}</td>
-            <td>
-              <button nz-button nzType="link">
-                <i nz-icon nzType="edit"></i>
-              </button>
-              <button nz-button nzType="link">
-                <i nz-icon nzType="delete"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
+    <nz-table
+      #responsaveisTable
+      [nzData]="responsaveis"
+      nzBordered
+      class="table-full-width"
+    >
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Data de Nascimento</th>
+          <th>Telefone</th>
+          <th>Email</th>
+          <th>Observações</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let responsavel of responsaveis">
+          <td>{{ responsavel.full_name }}</td>
+          <td>{{ responsavel.birthdate | date : "dd/MM/yyyy" }}</td>
+          <td>{{ responsavel.phone_number }}</td>
+          <td>{{ responsavel.email }}</td>
+          <td>{{ responsavel.observations }}</td>
+          <td>
+            <button
+              nz-button
+              nzType="link"
+              (click)="editarResponsavel(responsavel)"
+            >
+              <i nz-icon nzType="edit" class="icons-color"></i>
+            </button>
+            <button
+              nz-button
+              nzType="link"
+              (click)="openDeleteModal(responsavel)"
+            >
+              <i nz-icon nzType="delete" class="icons-color"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
 </nz-row>
 
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-  <button nz-button nzType="primary" class="button-style custom-border-input" [routerLink]="['/new-user']">Adicionar Novo Responsável</button>
+  <button
+    nz-button
+    nzType="primary"
+    class="button-style custom-border-input"
+    [routerLink]="['/new-user']"
+  >
+    Adicionar Novo Responsável
+  </button>
 </nz-row>
+
+<nz-modal
+  [(nzVisible)]="isDeleteModalVisible"
+  nzTitle="Excluir Medicamento"
+  [nzContent]="modalContent"
+  [nzClosable]="false"
+  [nzFooter]="modalFooter"
+>
+  <ng-template #modalContent>
+    <p>
+      Você tem certeza que deseja excluir o medicamento
+      <b>{{ selectedResponsible?.full_name }}</b
+      >?
+    </p>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button
+      nz-button
+      nzType="default"
+      (click)="handleCancel()"
+      class="modal-button modal-button-cancel custom-border-input"
+    >
+      Cancelar
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="confirmarDelete()"
+      class="modal-button modal-button-ok custom-border-input"
+    >
+      Ok
+    </button>
+  </ng-template>
+</nz-modal>

@@ -9,44 +9,75 @@
   table-layout: fixed;
 }
 
-.table-full-width th, .table-full-width td {
+.table-full-width th,
+.table-full-width td {
   padding: 8px;
   word-wrap: break-word;
 }
-  
-  .rounded-input {
-    height: 3.5em;
-    border-radius: 20px;
-    background-color: #edecff; 
-  }
-  
-  .button-center {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .button-style {
-    width: 15em;
-    height: 3.2em;
-    border-radius: 20px;
-    background-color: #5958A9;
-  }
-  
-  .button-style:hover {
-    background-color: #504CA6;
-  }
-  
-  .center-text {
-    text-align: center;
-  }
-  
-  .custom-border-input {
-    border-color: #5958A9;
-  }
-  
-  .custom-border-input:focus {
-    border-color: #504CA6; 
-    box-shadow: 0 0 5px rgba(80, 76, 166, 0.5);
-  }
-  
+
+.button-style {
+  width: 15.5em;
+  height: 3.2em;
+  border-radius: 20px;
+  background-color: #5958a9;
+}
+
+.button-style:hover {
+  background-color: #504ca6;
+}
+
+.custom-border-input {
+  border-color: #5958a9;
+}
+
+.custom-border-input:focus {
+  border-color: #504ca6;
+  box-shadow: 0 0 5px rgba(80, 76, 166, 0.5);
+}
+
+.icons-color {
+  color: #504ca6;
+}
+
+:host ::ng-deep .ant-pagination-item-active {
+  border-color: #504ca6 !important;
+  color: #fff;
+}
+
+:host ::ng-deep a {
+  color: #504ca6 !important;
+}
+
+:host ::ng-deep .ant-pagination-item-link {
+  color: #504ca6;
+}
+
+:host ::ng-deep .ant-pagination-item-link:hover {
+  color: #504ca6;
+  border-color: #5958a9;
+}
+
+:host ::ng-deep .ant-pagination-item:hover {
+  background-color: #ffffff;
+  border-color: #504ca6 !important;
+}
+
+.modal-button {
+  width: 8em;
+  height: 2.5em;
+  border-radius: 20px;
+}
+
+.modal-button-ok {
+  width: 8em;
+  height: 2.5em;
+  border-radius: 20px;
+  background-color: #5958a9;
+}
+
+.modal-button-cancel {
+  width: 8em;
+  height: 2.5em;
+  border-radius: 20px;
+  color: #5958a9;
+}

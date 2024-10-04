@@ -5,7 +5,7 @@
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
   <div class="form-container">
     <form
-      [formGroup]="newUserForm"
+      [formGroup]="editUserForm"
       nz-form
       nzLayout="vertical"
       (ngSubmit)="submitForm()"
@@ -176,7 +176,7 @@
           nzType="primary"
           type="submit"
         >
-          Cadastrar Responsável
+          Editar Responsável
         </button>
       </nz-form-item>
     </form>
