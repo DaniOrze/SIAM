@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
@@ -8,18 +12,19 @@ import pt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
-import { NgxEchartsModule } from 'ngx-echarts'; 
+import { NgxEchartsModule } from 'ngx-echarts';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import {
-  DashboardOutline, 
-  FormOutline, 
-  NotificationOutline, 
-  MonitorOutline, 
-  FileTextOutline, 
-  UserOutline, 
-  SettingOutline, 
-  MenuFoldOutline, 
-  MenuUnfoldOutline 
+  DashboardOutline,
+  FormOutline,
+  NotificationOutline,
+  MonitorOutline,
+  FileTextOutline,
+  UserOutline,
+  SettingOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(pt);
@@ -43,8 +48,11 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
     provideHttpClient(),
-    importProvidersFrom(NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
-    })),
-  ]
+    importProvidersFrom(
+      NgxEchartsModule.forRoot({
+        echarts: () => import('echarts'),
+      })
+    ),
+    provideEnvironmentNgxMask(),
+  ],
 };

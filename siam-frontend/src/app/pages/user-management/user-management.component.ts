@@ -6,11 +6,15 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { FormsModule } from '@angular/forms'; 
-import { MOCK_RESPONSAVEIS } from './mock-responsaveis'; 
+import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { Router } from '@angular/router';
+import { ResponsibleService } from '../../services/responsible.service';
+import { Responsible } from '../../models/responsible.model';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-user-management',
@@ -27,24 +31,75 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     RouterLink,
     RouterOutlet,
     NzTableModule,
-    NzIconModule],
+    NzIconModule,
+    NzModalModule,
+  ],
   templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.css'
+  styleUrl: './user-management.component.css',
 })
 export class UserManagementComponent {
+  responsaveis: Responsible[] = [];
+  isDeleteModalVisible = false;
+  selectedResponsible: Responsible | null = null;
 
-  responsaveis = MOCK_RESPONSAVEIS;
+  constructor(
+    private responsibleService: ResponsibleService,
+    private router: Router,
+    private message: NzMessageService
+  ) {}
 
-  // Função para editar um responsável
-  editarResponsavel(responsavel: any) {
-    console.log('Editando responsável:', responsavel);
-    // Lógica para editar o responsável
+  ngOnInit(): void {
+    this.loadResponsaveis();
   }
 
-  // Função para deletar um responsável
-  deletarResponsavel(responsavel: any) {
-    console.log('Deletando responsável:', responsavel);
-    // Lógica para deletar o responsável
+  loadResponsaveis(): void {
+    this.responsibleService.getResponsibles().subscribe(
+      (data: Responsible[]) => {
+        this.responsaveis = data;
+        console.log(this.responsaveis);
+      },
+      (error) => {
+        console.error('Erro ao obter responsáveis:', error);
+      }
+    );
   }
 
+  openDeleteModal(responsavel: Responsible): void {
+    this.selectedResponsible = responsavel;
+    this.isDeleteModalVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isDeleteModalVisible = false;
+  }
+
+  confirmarDelete(): void {
+    if (this.selectedResponsible?.id === undefined) {
+      console.error('ID do responsável não está definido.');
+      return;
+    }
+
+    this.responsibleService
+      .deleteResponsible(this.selectedResponsible.id)
+      .subscribe(
+        () => {
+          const index = this.responsaveis.indexOf(this.selectedResponsible!);
+          if (index > -1) {
+            this.responsaveis.splice(index, 1);
+          }
+          this.message.success('Responsável excluído com sucesso!');
+          this.isDeleteModalVisible = false;
+          this.selectedResponsible = null;
+        },
+        (error) => {
+          console.error('Erro ao excluir responsável:', error);
+          this.message.error('Erro ao excluir o responsável. Tente novamente.');
+          this.isDeleteModalVisible = false;
+        }
+      );
+  }
+
+  editarResponsavel(responsavel: Responsible): void {
+    this.router.navigate(['/edit-responsible', responsavel.id]);
+  }
 }

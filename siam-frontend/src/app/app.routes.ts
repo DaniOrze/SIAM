@@ -95,6 +95,14 @@ export const routes: Routes = [
             (m) => m.EditMedicationComponent
           ),
       },
+      {
+        path: 'edit-responsible/:id',
+        loadComponent: () =>
+          import('./pages/edit-user/edit-user.component').then(
+            (m) => m.EditUserComponent
+          ),
+      },
     ],
   },
 ];
+
