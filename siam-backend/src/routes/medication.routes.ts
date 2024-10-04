@@ -11,8 +11,17 @@ const router = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Medication
+ *   description: Endpoints para gerenciar medicamentos
+ */
+
+/**
+ * @swagger
  * /new-medications:
  *   post:
+ *     tags:
+ *       - Medication
  *     summary: Cria um novo medicamento
  *     description: Adiciona um novo medicamento à base de dados.
  *     requestBody:
@@ -57,6 +66,8 @@ router.post("/new-medications", createMedication);
  * @swagger
  * /get-medications:
  *   get:
+ *     tags:
+ *       - Medication
  *     summary: Retorna uma lista de medicamentos
  *     responses:
  *       200:
@@ -102,6 +113,8 @@ router.get("/get-medications", getMedications);
  * @swagger
  * /delete-medications/{id}:
  *   delete:
+ *     tags:
+ *       - Medication
  *     summary: Deleta um medicamento
  *     description: Remove um medicamento da base de dados pelo ID.
  *     parameters:
@@ -123,6 +136,8 @@ router.delete("/delete-medications/:id", deleteMedication);
  * @swagger
  * /edit-medications/{id}:
  *   put:
+ *     tags:
+ *       - Medication
  *     summary: Edita um medicamento
  *     description: Atualiza os dados de um medicamento existente.
  *     parameters:
@@ -174,6 +189,8 @@ router.put("/edit-medications/:id", editMedication);
  * @swagger
  * /get-medication/{id}:
  *   get:
+ *     tags:
+ *       - Medication
  *     summary: Retorna um medicamento específico
  *     description: Obtém os detalhes de um medicamento pelo ID.
  *     parameters:
