@@ -1,40 +1,236 @@
 <nz-layout class="centered-container">
-    <nz-content>
+  <nz-content>
     <div class="centered-div">
       <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-          <h1 class="main-title">Sistema Inteligente de Administração de Medicamentos</h1>
-          <nz-col nzXs="24" nzMd="12">
-            <img src="login_signup_image.png" alt="Imagem" class="image-left" />
-          </nz-col>
-          <nz-col nzXs="24" nzMd="12">
-            <h2 class="center-text">Criar sua conta</h2>
-            <form nz-form nzLayout="vertical">
+        <h1 class="main-title">
+          Sistema Inteligente de Administração de Medicamentos
+        </h1>
+      </nz-row>
+
+      <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+        <img src="login_signup_image.png" alt="Imagem" class="image-left" />
+      </nz-row>
+
+      <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+        <h2 class="center-text">Criar sua conta</h2>
+      </nz-row>
+      <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+        <h3 class="center-text">Informações Pessoais</h3>
+      </nz-row>
+      <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+        <form
+          [formGroup]="signupForm"
+          nz-form
+          nzLayout="vertical"
+          (ngSubmit)="onSubmit()"
+        >
+          <nz-row [nzGutter]="16">
+            <nz-col nzSpan="12">
               <nz-form-item>
-                <nz-form-label [nzFor]="'name'" nzRequired>Nome completo</nz-form-label>
+                <nz-form-label [nzFor]="'fullName'" nzRequired
+                  >Nome Completo</nz-form-label
+                >
                 <nz-form-control>
-                  <input nz-input id="name" name="name" class="rounded-input custom-border-input" />
+                  <input
+                    nz-input
+                    formControlName="fullName"
+                    id="fullName"
+                    class="rounded-input custom-border-input"
+                  />
                 </nz-form-control>
               </nz-form-item>
+            </nz-col>
+            <nz-col nzSpan="12">
               <nz-form-item>
-                <nz-form-label [nzFor]="'username'" nzRequired>Usuário</nz-form-label>
+                <nz-form-label [nzFor]="'nickname'">Apelido</nz-form-label>
                 <nz-form-control>
-                  <input nz-input id="username" name="username" class="rounded-input custom-border-input" />
+                  <input
+                    nz-input
+                    formControlName="nickname"
+                    id="nickname"
+                    class="rounded-input custom-border-input"
+                  />
                 </nz-form-control>
               </nz-form-item>
+            </nz-col>
+          </nz-row>
+
+          <nz-row [nzGutter]="16">
+            <nz-col nzSpan="12">
               <nz-form-item>
-                <nz-form-label [nzFor]="'password'" nzRequired>Senha</nz-form-label>
+                <nz-form-label [nzFor]="'email'" nzRequired
+                  >Email</nz-form-label
+                >
                 <nz-form-control>
-                  <input nz-input id="password" type="password" name="password" class="rounded-input custom-border-input" />
+                  <input
+                    nz-input
+                    formControlName="email"
+                    id="email"
+                    class="rounded-input custom-border-input"
+                    type="email"
+                  />
                 </nz-form-control>
               </nz-form-item>
-              <nz-form-item class="button-center">
-                <button nz-button class="button-style" nzType="primary">Criar conta</button>
+            </nz-col>
+            <nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'phoneNumber'" nzRequired
+                  >Telefone</nz-form-label
+                >
+                <nz-form-control>
+                  <input
+                    nz-input
+                    formControlName="phoneNumber"
+                    id="phoneNumber"
+                    mask="(00) 00000-0000"
+                    class="rounded-input custom-border-input"
+                    placeholder="(00) 00000-0000"
+                  />
+                </nz-form-control>
               </nz-form-item>
-            </form>
-            <p class="center-text">Já possui conta? <a routerLink="/login">Entrar na sua conta</a></p>
-          </nz-col>
-        </nz-row>
-      </div>
-    </nz-content>
-  </nz-layout>
-  
+            </nz-col>
+          </nz-row>
+
+          <nz-row [nzGutter]="16">
+            <nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'cpf'" nzRequired>CPF</nz-form-label>
+                <nz-form-control>
+                  <input
+                    nz-input
+                    formControlName="cpf"
+                    id="cpf"
+                    mask="000.000.000-00"
+                    class="rounded-input custom-border-input"
+                    placeholder="000.000.000-00"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'birthdate'" nzRequired
+                  >Data de Nascimento</nz-form-label
+                >
+                <nz-form-control>
+                  <nz-date-picker
+                    formControlName="birthdate"
+                    id="birthdate"
+                    nzFormat="dd/MM/yyyy"
+                    class="rounded-input custom-border-input date-picker-input"
+                  ></nz-date-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+          </nz-row>
+
+          <nz-row [nzGutter]="16">
+            <nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'address'">Endereço</nz-form-label>
+                <nz-form-control>
+                  <input
+                    nz-input
+                    formControlName="address"
+                    id="address"
+                    class="rounded-input custom-border-input"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col nzSpan="6">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'city'">Cidade</nz-form-label>
+                <nz-form-control>
+                  <input
+                    nz-input
+                    formControlName="city"
+                    id="city"
+                    class="rounded-input custom-border-input"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col nzSpan="6">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'zipCode'">CEP</nz-form-label>
+                <nz-form-control>
+                  <input
+                    nz-input
+                    formControlName="zipCode"
+                    id="zipCode"
+                    class="rounded-input custom-border-input"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+          </nz-row>
+
+          <nz-row [nzGutter]="16">
+            <nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-label [nzFor]="'observations'"
+                  >Observações</nz-form-label
+                >
+                <nz-form-control>
+                  <nz-textarea-count [nzMaxCharacterCount]="500">
+                    <textarea
+                      formControlName="observations"
+                      id="observations"
+                      nz-input
+                      rows="4"
+                      class="text-input custom-border-input"
+                      placeholder="Escreva as observações aqui"
+                    ></textarea>
+                  </nz-textarea-count>
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+          </nz-row>
+
+          <h3 class="center-text">Detalhes de Login</h3>
+          <nz-form-item>
+            <nz-form-label [nzFor]="'username'" nzRequired
+              >Usuário</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                formControlName="username"
+                id="username"
+                class="rounded-input custom-border-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzFor]="'password'" nzRequired>Senha</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                formControlName="password"
+                id="password"
+                type="password"
+                class="rounded-input custom-border-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="button-center">
+            <button
+              nz-button
+              class="button-style"
+              nzType="primary"
+              [disabled]="signupForm.invalid"
+            >
+              Criar conta
+            </button>
+          </nz-form-item>
+        </form>
+
+        <p class="center-text">
+          Já possui conta? <a routerLink="/login">Entrar na sua conta</a>
+        </p>
+      </nz-row>
+    </div>
+  </nz-content>
+</nz-layout>
