@@ -12,11 +12,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .image-left {
-  max-width: 100%;
+  width: 100%;
+  max-width: 450px;
   height: auto;
+  display: block;
+  margin: 0 auto 20px;
 }
 
 :host ::ng-deep .ant-layout-content {
@@ -61,6 +66,11 @@
 .custom-border-input:focus {
   border-color: #504ca6;
   box-shadow: 0 0 5px rgba(80, 76, 166, 0.5);
+}
+
+.text-input {
+  border-radius: 20px;
+  background-color: #edecff;
 }
 
 .date-picker-input {
