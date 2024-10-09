@@ -130,10 +130,17 @@ export class EditMedicationComponent implements OnInit {
     schedules.push(
       this.formBuilder.group({
         time: [''],
-        daysOfWeek: [[]],
+        daysOfWeek: [
+          this.days.map((day) => ({
+            label: day,
+            value: day,
+            checked: false,
+          })),
+        ],
       })
     );
   }
+  
 
   removerHorario(index: number) {
     const schedules = this.administrationSchedules;
