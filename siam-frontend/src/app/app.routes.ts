@@ -102,7 +102,20 @@ export const routes: Routes = [
             (m) => m.EditUserComponent
           ),
       },
+      {
+        path: 'new-alert',
+        loadComponent: () =>
+          import('./pages/new-alert/new-alert.component').then(
+            (m) => m.NewAlertComponent
+          ),
+      },
+      {
+        path: 'edit-alert/:id',
+        loadComponent: () =>
+          import('./pages/edit-alert/edit-alert.component').then(
+            (m) => m.EditAlertComponent
+          ),
+      },
     ],
   },
 ];
-

@@ -1,0 +1,105 @@
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <h2>Cadastro de Alerta</h2>
+</nz-row>
+
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <div class="form-container">
+    <form
+      [formGroup]="alertForm"
+      nz-form
+      nzLayout="vertical"
+      (ngSubmit)="onSubmit()"
+    >
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'name'" nzRequired
+              >Nome do Alerta</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="name"
+                formControlName="name"
+                class="rounded-input custom-border-input"
+                placeholder="Insira o nome do alerta"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'type'" nzRequired
+              >Tipo de Alerta</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="type"
+                formControlName="type"
+                class="rounded-input custom-border-input"
+                placeholder="Insira o tipo de alerta"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'duration'" nzRequired
+              >Duração (segundos)</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="durationInSeconds"
+                formControlName="duration"
+                type="number"
+                class="rounded-input custom-border-input"
+                placeholder="Insira a duração do alerta"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'playCount'" nzRequired
+              >Quantidade de Reprodução</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="playbackCount"
+                formControlName="playCount"
+                type="number"
+                class="rounded-input custom-border-input"
+                placeholder="Insira a quantidade de reprodução"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="4">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'isActive'">Ativo</nz-form-label>
+            <nz-form-control>
+              <nz-switch formControlName="isActive"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
+      <nz-form-item class="button-center">
+        <button
+          nz-button
+          nzType="primary"
+          type="submit"
+          class="button-style custom-border-input"
+        >
+          Adicionar Alerta
+        </button>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-row>
