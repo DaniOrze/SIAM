@@ -1,1 +1,88 @@
-<p>alerts works!</p>
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <h2>Gerenciamento de Alertas</h2>
+</nz-row>
+
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <div class="form-container">
+    <nz-table
+      #alertasTable
+      [nzData]="alerts"
+      nzBordered
+      class="table-full-width"
+      [nzShowPagination]="true"
+    >
+      <thead>
+        <tr>
+          <th>Nome do Alerta</th>
+          <th>Tipo</th>
+          <th>Duração (segundos)</th>
+          <th>Quantidade de Reprodução</th>
+          <th>Ativo</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alerta of alerts">
+          <td>{{ alerta.name }}</td>
+          <td>{{ alerta.type }}</td>
+          <td>{{ alerta.duration }}</td>
+          <td>{{ alerta.playCount }}</td>
+          <td>{{ alerta.isActive ? "Sim" : "Não" }}</td>
+          <td>
+            <button nz-button nzType="link" (click)="editarAlert(alerta)">
+              <i nz-icon nzType="edit" class="icons-color"></i>
+            </button>
+            <button nz-button nzType="link" (click)="openDeleteModal(alerta)">
+              <i nz-icon nzType="delete" class="icons-color"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-row>
+
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <button
+    nz-button
+    nzType="primary"
+    class="button-style custom-border-input"
+    [routerLink]="['/new-alert']"
+  >
+    Adicionar Novo Alerta
+  </button>
+</nz-row>
+
+<nz-modal
+  [(nzVisible)]="isDeleteModalVisible"
+  nzTitle="Excluir Alerta"
+  [nzContent]="modalContent"
+  [nzClosable]="false"
+  [nzFooter]="modalFooter"
+>
+  <ng-template #modalContent>
+    <p>
+      Você tem certeza que deseja excluir o alerta
+      <b>{{ selectedAlert?.name }}</b
+      >?
+    </p>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button
+      nz-button
+      nzType="default"
+      (click)="handleCancel()"
+      class="modal-button modal-button-cancel custom-border-input"
+    >
+      Cancelar
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="confirmarDelete()"
+      class="modal-button modal-button-ok custom-border-input"
+    >
+      Ok
+    </button>
+  </ng-template>
+</nz-modal>
