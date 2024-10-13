@@ -3,6 +3,7 @@ import cors from "cors";
 import medicationRoutes from "./routes/medication.routes";
 import responsibleRoutes from "./routes/responsible.routes";
 import authRoutes from "./routes/auth.routes";
+import alertRoutes from "./routes/alert.routes";
 import { serve, setup } from "./config/swagger";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/api-docs", serve, setup);
 app.use(medicationRoutes);
 app.use(responsibleRoutes);
 app.use(authRoutes);
+app.use(alertRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
