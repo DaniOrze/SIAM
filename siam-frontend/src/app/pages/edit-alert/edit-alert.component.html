@@ -90,6 +90,29 @@
         </nz-col>
       </nz-row>
 
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'medicationId'" nzRequired
+              >Medicação</nz-form-label
+            >
+            <nz-form-control>
+              <nz-select
+                formControlName="medicationId"
+                [nzPlaceHolder]="'Selecione a medicação'"
+                nzShowSearch
+              >
+                <nz-option
+                  *ngFor="let medication of medications"
+                  [nzValue]="medication.id"
+                  [nzLabel]="medication.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
       <nz-form-item class="button-center">
         <button
           nz-button
