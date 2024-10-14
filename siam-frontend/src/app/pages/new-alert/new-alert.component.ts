@@ -20,6 +20,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { MedicationService } from '../../services/medication.service';
+import { Medication } from '../../models/medication.model';
 
 @Component({
   selector: 'app-new-alert',
@@ -43,14 +45,14 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 })
 export class NewAlertComponent implements OnInit {
   alertForm!: FormGroup;
-  successMessage: string | null = null;
-  errorMessage: string | null = null;
+  medications: Medication[] = [];
 
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
     private message: NzMessageService,
-    private router: Router
+    private router: Router,
+    private medicationService: MedicationService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +62,21 @@ export class NewAlertComponent implements OnInit {
       duration: [Validators.required, Validators.min(1)],
       playCount: [Validators.required, Validators.min(1)],
       isActive: [true],
+      medicationId: [null, Validators.required],
+    });
+
+    this.loadMedications();
+  }
+
+  loadMedications() {
+    this.medicationService.getMedicamentos().subscribe({
+      next: (medications: Medication[]) => {
+        this.medications = medications;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar medicações:', error);
+        this.message.error('Erro ao carregar as medicações. Tente novamente.');
+      },
     });
   }
 

@@ -20,6 +20,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { MedicationService } from '../../services/medication.service';
+import { Medication } from '../../models/medication.model';
 
 @Component({
   selector: 'app-edit-alert',
@@ -43,13 +45,15 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 })
 export class EditAlertComponent implements OnInit {
   alertForm: FormGroup;
+  medications: Medication[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private alertService: AlertService,
     private router: Router,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private medicationService: MedicationService
   ) {
     this.alertForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -57,6 +61,7 @@ export class EditAlertComponent implements OnInit {
       duration: [Validators.required, Validators.min(1)],
       playCount: [Validators.required, Validators.min(1)],
       isActive: [true],
+      medicationId: [''],
     });
   }
 
@@ -65,11 +70,25 @@ export class EditAlertComponent implements OnInit {
     if (id) {
       this.loadAlert(id);
     }
+
+    this.loadMedications();
   }
 
   loadAlert(id: string) {
     this.alertService.getAlertById(id).subscribe((alert: Alert) => {
       this.alertForm.patchValue(alert);
+    });
+  }
+
+  loadMedications() {
+    this.medicationService.getMedicamentos().subscribe({
+      next: (medications: Medication[]) => {
+        this.medications = medications;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar medicações:', error);
+        this.message.error('Erro ao carregar as medicações. Tente novamente.');
+      },
     });
   }
 
