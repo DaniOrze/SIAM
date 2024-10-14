@@ -5,4 +5,5 @@ export interface Alert {
   duration: number;
   playCount: number;
   isActive: boolean;
+  medicationId: number;
 }
