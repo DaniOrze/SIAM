@@ -5,6 +5,7 @@ import responsibleRoutes from "./routes/responsible.routes";
 import authRoutes from "./routes/auth.routes";
 import alertRoutes from "./routes/alert.routes";
 import { serve, setup } from "./config/swagger";
+import adherenceRoutes from "./routes/adherence.routes";
 
 const app = express();
 const port = 3000;
@@ -18,6 +19,7 @@ app.use(medicationRoutes);
 app.use(responsibleRoutes);
 app.use(authRoutes);
 app.use(alertRoutes);
+app.use(adherenceRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
