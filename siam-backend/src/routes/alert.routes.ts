@@ -46,6 +46,9 @@ const router = Router();
  *               isActive:
  *                 type: boolean
  *                 description: Se o alerta está ativo ou não
+ *               medicationId:
+ *                 type: number
+ *                 description: ID do medicamento associado ao alerta
  *     responses:
  *       201:
  *         description: Alerta criado com sucesso
@@ -87,6 +90,12 @@ router.post("/new-alerts", createAlert);
  *                   isActive:
  *                     type: boolean
  *                     description: Status de ativo/inativo
+ *                   medicationId:
+ *                     type: integer
+ *                     description: ID do medicamento associado ao alerta
+ *                   medicationName:
+ *                     type: string
+ *                     description: Nome do medicamento associado
  *       500:
  *         description: Erro ao obter os alertas
  */
@@ -152,6 +161,9 @@ router.delete("/delete-alerts/:id", deleteAlert);
  *               isActive:
  *                 type: boolean
  *                 description: Status de ativo/inativo
+ *               medicationId:
+ *                 type: number
+ *                 description: ID do medicamento associado ao alerta
  *     responses:
  *       200:
  *         description: Alerta atualizado com sucesso
@@ -195,6 +207,10 @@ router.put("/edit-alerts/:id", editAlert);
  *                   type: number
  *                 isActive:
  *                   type: boolean
+ *                 medicationId:
+ *                   type: integer
+ *                 medicationName:
+ *                   type: string
  *       500:
  *         description: Erro ao obter o alerta
  */
