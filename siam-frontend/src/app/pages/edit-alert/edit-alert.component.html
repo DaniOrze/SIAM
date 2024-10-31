@@ -27,42 +27,9 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label [nzFor]="'type'" nzRequired
-              >Tipo de Alerta</nz-form-label
-            >
-            <nz-form-control>
-              <input
-                nz-input
-                id="type"
-                formControlName="type"
-                class="rounded-input custom-border-input"
-                placeholder="Insira o tipo de alerta"
-              />
-            </nz-form-control>
-          </nz-form-item>
-        </nz-col>
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="8">
-          <nz-form-item>
-            <nz-form-label [nzFor]="'duration'" nzRequired
-              >Duração (segundos)</nz-form-label
-            >
-            <nz-form-control>
-              <input
-                nz-input
-                id="duration"
-                formControlName="duration"
-                type="number"
-                class="rounded-input custom-border-input"
-                placeholder="Insira a duração do alerta"
-              />
-            </nz-form-control>
-          </nz-form-item>
-        </nz-col>
         <nz-col nzSpan="8">
           <nz-form-item>
             <nz-form-label [nzFor]="'playCount'" nzRequired

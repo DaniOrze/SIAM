@@ -58,9 +58,7 @@ export class NewAlertComponent implements OnInit {
   ngOnInit(): void {
     this.alertForm = this.fb.group({
       name: ['', Validators.required],
-      type: ['', Validators.required],
-      duration: [Validators.required, Validators.min(1)],
-      playCount: [Validators.required, Validators.min(1)],
+      playCount: [''],
       isActive: [true],
       medicationId: [null, Validators.required],
     });

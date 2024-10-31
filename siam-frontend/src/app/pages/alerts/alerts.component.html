@@ -14,8 +14,6 @@
       <thead>
         <tr>
           <th>Nome do Alerta</th>
-          <th>Tipo</th>
-          <th>Duração (segundos)</th>
           <th>Quantidade de Reprodução</th>
           <th>Ativo</th>
           <th>Medicação</th>
@@ -25,8 +23,6 @@
       <tbody>
         <tr *ngFor="let alerta of alerts">
           <td>{{ alerta.name }}</td>
-          <td>{{ alerta.type }}</td>
-          <td>{{ alerta.duration }}</td>
           <td>{{ alerta.playCount }}</td>
           <td>{{ alerta.isActive ? "Sim" : "Não" }}</td>
           <td>{{ alerta.medicationname || "Não informado" }}</td>
