@@ -57,9 +57,7 @@ export class EditAlertComponent implements OnInit {
   ) {
     this.alertForm = this.formBuilder.group({
       name: ['', Validators.required],
-      type: ['', Validators.required],
-      duration: [Validators.required, Validators.min(1)],
-      playCount: [Validators.required, Validators.min(1)],
+      playCount: [''],
       isActive: [true],
       medicationId: [''],
     });
