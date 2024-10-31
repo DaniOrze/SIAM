@@ -34,12 +34,6 @@ const router = Router();
  *               name:
  *                 type: string
  *                 description: Nome do alerta
- *               type:
- *                 type: string
- *                 description: Tipo de alerta
- *               duration:
- *                 type: number
- *                 description: Duração do alerta em segundos
  *               playCount:
  *                 type: number
  *                 description: Quantidade de vezes que o alerta será reproduzido
@@ -79,11 +73,6 @@ router.post("/new-alerts", createAlert);
  *                     type: integer
  *                   name:
  *                     type: string
- *                   type:
- *                     type: string
- *                   duration:
- *                     type: number
- *                     description: Duração em segundos
  *                   playCount:
  *                     type: number
  *                     description: Quantidade de reproduções
@@ -149,12 +138,6 @@ router.delete("/delete-alerts/:id", deleteAlert);
  *               name:
  *                 type: string
  *                 description: Nome do alerta
- *               type:
- *                 type: string
- *                 description: Tipo de alerta
- *               duration:
- *                 type: number
- *                 description: Duração do alerta em segundos
  *               playCount:
  *                 type: number
  *                 description: Quantidade de reproduções do alerta
@@ -199,10 +182,6 @@ router.put("/edit-alerts/:id", editAlert);
  *                   type: integer
  *                 name:
  *                   type: string
- *                 type:
- *                   type: string
- *                 duration:
- *                   type: number
  *                 playCount:
  *                   type: number
  *                 isActive:

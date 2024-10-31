@@ -3,16 +3,15 @@ import pool from "../config/dbConfig";
 import { Alert } from "../models/alert.model";
 
 export const createAlert = async (req: Request, res: Response) => {
-  const { name, type, duration, playCount, isActive, medicationId }: Alert =
-    req.body;
+  const { name, playCount, isActive, medicationId }: Alert = req.body;
 
   try {
     const client = await pool.connect();
 
     const result = await client.query(
-      `INSERT INTO alerts (name, type, duration, play_count, is_active, medication_id) 
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
-      [name, type, duration, playCount, isActive, medicationId]
+      `INSERT INTO alerts (name, play_count, is_active, medication_id) 
+       VALUES ($1, $2, $3, $4) RETURNING id`,
+      [name, playCount, isActive, medicationId]
     );
 
     client.release();
@@ -30,7 +29,7 @@ export const createAlert = async (req: Request, res: Response) => {
 export const getAlerts = async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
-      `SELECT a.id, a.name, a.type, a.duration, a.play_count AS "playCount", 
+      `SELECT a.id, a.name, a.play_count AS "playCount", 
               a.is_active AS "isActive", a.medication_id AS "medicationId", 
               m.name AS medicationName
        FROM alerts a
@@ -62,17 +61,16 @@ export const deleteAlert = async (req: Request, res: Response) => {
 };
 
 export const editAlert = async (req: Request, res: Response) => {
-  const { id, name, type, duration, playCount, isActive, medicationId }: Alert =
-    req.body;
+  const { id, name, playCount, isActive, medicationId }: Alert = req.body;
 
   try {
     const client = await pool.connect();
 
     await client.query(
       `UPDATE alerts 
-       SET name = $1, type = $2, duration = $3, play_count = $4, is_active = $5, medication_id = $6
-       WHERE id = $7`,
-      [name, type, duration, playCount, isActive, medicationId, id]
+       SET name = $1, play_count = $2, is_active = $3, medication_id = $4
+       WHERE id = $5`,
+      [name, playCount, isActive, medicationId, id]
     );
 
     client.release();
@@ -89,7 +87,7 @@ export const getAlertById = async (req: Request, res: Response) => {
 
   try {
     const result = await pool.query(
-      `SELECT a.id, a.name, a.type, a.duration, a.play_count AS "playCount", 
+      `SELECT a.id, a.name, a.play_count AS "playCount", 
               a.is_active AS "isActive", a.medication_id AS "medicationId", 
               m.name AS medicationName
        FROM alerts a
