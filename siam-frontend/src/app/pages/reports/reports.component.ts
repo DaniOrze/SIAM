@@ -1,67 +1,78 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import * as XLSX from 'xlsx';
+import { Component, OnInit } from '@angular/core';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { MedicationService } from '../../services/medication.service';
+import { CsvMedication, Medication } from '../../models/medication.model';
+import { AdherenceService } from '../../services/adherence.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports: [CommonModule, NzTableModule, NzLayoutModule, NzGridModule, NzButtonModule],
+  imports: [
+    CommonModule,
+    NzTableModule,
+    NzLayoutModule,
+    NzGridModule,
+    NzButtonModule,
+  ],
   templateUrl: './reports.component.html',
-  styleUrl: './reports.component.css'
+  styleUrl: './reports.component.css',
 })
-export class ReportsComponent {
-  medicamentos = [
-    {
-      name: 'Medicamento A',
-      dosage: 500,
-      startDate: new Date('2023-01-01'),
-      endDate: new Date('2023-12-31'),
-      administrationSchedules: [
-        { time: '08:00', daysOfWeek: ['Segunda', 'Quarta', 'Sexta'] },
-        { time: '20:00', daysOfWeek: ['Terça', 'Quinta'] }
-      ],
-      daysTaken: ['01/01', '03/01', '05/01'],
-      daysMissed: ['02/01', '04/01']
-    },
-    {
-      name: 'Medicamento B',
-      dosage: 250,
-      startDate: new Date('2023-02-15'),
-      endDate: new Date('2023-11-30'),
-      administrationSchedules: [
-        { time: '10:00', daysOfWeek: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'] }
-      ],
-      daysTaken: ['15/02', '16/02', '17/02', '19/02'],
-      daysMissed: ['18/02', '20/02', '21/02']
-    }
-  ];
+export class ReportsComponent implements OnInit {
+  medicamentos: Medication[] = [];
 
-  editarMedicamento(medicamento: any): void {
-    console.log('Editar medicamento', medicamento);
+  constructor(
+    private medicationService: MedicationService,
+    private adherenceService: AdherenceService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadMedications();
   }
 
-  deletarMedicamento(medicamento: any): void {
-    const index = this.medicamentos.indexOf(medicamento);
-    if (index > -1) {
-      this.medicamentos.splice(index, 1);
-    }
+  private loadMedications(): void {
+    this.medicationService.getMedicamentos().subscribe({
+      next: (data) => {
+        this.medicamentos = data;
+
+        this.adherenceService.getAdherenceData().subscribe({
+          next: (adherenceData) => {
+            this.medicamentos.forEach((med) => {
+              const adherence = adherenceData.find((a) => a.name === med.name);
+              if (adherence) {
+                med.takenCount = adherence.taken_count;
+                med.missedCount = adherence.missed_count;
+              }
+            });
+          },
+          error: (err) =>
+            console.error('Erro ao carregar dados de adesão:', err),
+        });
+      },
+      error: (err) => console.error('Erro ao carregar medicamentos:', err),
+    });
   }
 
   exportToCSV(): void {
-    const csvData = this.medicamentos.map(med => ({
+    const csvData = this.medicamentos.map((med) => ({
       Medicamento: med.name,
       Dosagem: med.dosage,
-      DataInicio: med.startDate.toLocaleDateString(),
-      DataFim: med.endDate.toLocaleDateString(),
-      Horarios: med.administrationSchedules.map(schedule => `Horário: ${schedule.time} | Dias: ${schedule.daysOfWeek.join(', ')}`).join('; '),
-      DiasTomados: med.daysTaken.join(', '),
-      DiasNaoTomados: med.daysMissed.join(', '),
-      QuantidadeTomada: med.daysTaken.length,
-      QuantidadeNaoTomada: med.daysMissed.length
+      DataInicio: med.startdate,
+      DataFim: med.enddate,
+      Horarios: med.administrationschedules
+        .map(
+          (schedule) =>
+            `Horário: ${schedule.time} | Dias: ${schedule.daysOfWeek.join(
+              ', '
+            )}`
+        )
+        .join('; '),
+      QuantidadeTomada: med.takenCount || 0,
+      QuantidadeNaoTomada: med.missedCount || 0,
     }));
 
     const csvContent = this.convertToCSV(csvData);
@@ -72,29 +83,44 @@ export class ReportsComponent {
     a.setAttribute('download', 'relatorio_medicamentos.csv');
     document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
   }
 
   exportToXLS(): void {
-    const worksheet = XLSX.utils.json_to_sheet(this.medicamentos.map(med => ({
-      Medicamento: med.name,
-      Dosagem: med.dosage,
-      DataInicio: med.startDate.toLocaleDateString(),
-      DataFim: med.endDate.toLocaleDateString(),
-      Horarios: med.administrationSchedules.map(schedule => `Horário: ${schedule.time} | Dias: ${schedule.daysOfWeek.join(', ')}`).join('; '),
-      DiasTomados: med.daysTaken.join(', '),
-      DiasNaoTomados: med.daysMissed.join(', '),
-      QuantidadeTomada: med.daysTaken.length,
-      QuantidadeNaoTomada: med.daysMissed.length
-    })));
+    const worksheet = XLSX.utils.json_to_sheet(
+      this.medicamentos.map((med) => ({
+        Medicamento: med.name,
+        Dosagem: med.dosage,
+        DataInicio: med.startdate,
+        DataFim: med.enddate,
+        Horarios: med.administrationschedules
+          .map(
+            (schedule) =>
+              `Horário: ${schedule.time} | Dias: ${schedule.daysOfWeek.join(
+                ', '
+              )}`
+          )
+          .join('; '),
+        QuantidadeTomada: med.takenCount || 0,
+        QuantidadeNaoTomada: med.missedCount || 0,
+      }))
+    );
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Relatório');
     XLSX.writeFile(workbook, 'relatorio_medicamentos.xlsx');
   }
 
-  private convertToCSV(data: any[]): string {
+  private convertToCSV(data: CsvMedication[]): string {
     const headers = Object.keys(data[0]).join(',') + '\n';
-    const rows = data.map(row => Object.values(row).join(',')).join('\n');
+    const rows = data
+      .map((row) =>
+        Object.values(row)
+          .map((value) => `"${value}"`)
+          .join(',')
+      )
+      .join('\n');
+
     return headers + rows;
   }
 }
