@@ -80,8 +80,8 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     const user = result.rows[0];
-
     const passwordMatch = await bcrypt.compare(password, user.password);
+
     if (!passwordMatch) {
       res.status(400).json({ error: "Senha incorreta." });
       return;
@@ -95,9 +95,90 @@ export const loginUser = async (req: Request, res: Response) => {
       }
     );
 
-    res.status(200).json({ message: "Login realizado com sucesso!", token });
+    res
+      .status(200)
+      .json({
+        message: "Login realizado com sucesso!",
+        token,
+        userId: user.id,
+      });
   } catch (error) {
     console.error("Erro ao realizar login:", error);
     res.status(500).json({ error: "Erro ao realizar login." });
+  }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id);
+
+  try {
+    const client = await pool.connect();
+
+    const result = await client.query(
+      `SELECT full_name AS "fullName", nickname, email, phone_number AS "phoneNumber", cpf, birthdate, address, city, zip_code AS "zipCode", observations, username 
+       FROM users 
+       WHERE id = $1`,
+      [userId]
+    );
+    client.release();
+
+    if (result.rows.length === 0) {
+      res.status(404).json({ error: "Usuário não encontrado." });
+      return;
+    }
+
+    const user = result.rows[0];
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("Erro ao buscar usuário:", error);
+    res.status(500).json({ error: "Erro ao buscar usuário." });
+  }
+};
+
+export const editUser = async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id);
+  const {
+    fullName,
+    nickname,
+    email,
+    phoneNumber,
+    cpf,
+    birthdate,
+    address,
+    city,
+    zipCode,
+    observations,
+  }: User = req.body;
+
+  try {
+    const client = await pool.connect();
+
+    await client.query(
+      `UPDATE users 
+       SET full_name = $1, nickname = $2, email = $3, phone_number = $4, 
+           cpf = $5, birthdate = $6, address = $7, city = $8, 
+           zip_code = $9, observations = $10
+       WHERE id = $11`,
+      [
+        fullName,
+        nickname || null,
+        email,
+        phoneNumber,
+        cpf,
+        birthdate,
+        address || null,
+        city || null,
+        zipCode || null,
+        observations || null,
+        userId,
+      ]
+    );
+
+    client.release();
+
+    res.status(200).json({ message: "Usuário atualizado com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    res.status(500).json({ error: "Erro ao atualizar usuário." });
   }
 };
