@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { User, RegisterResponse, LoginResponse } from '../models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { User, RegisterResponse, LoginResponse, UserResponse } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +16,25 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
-      username,
-      password,
-    });
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { username, password }).pipe(
+      tap((response) => {
+        if (response.token && response.userId) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('userId', response.userId.toString());
+        }
+      })
+    );
   }
+
+  getUserById(userId: number): Observable<UserResponse> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<UserResponse>(`${this.apiUrl}/users/${userId}`, { headers });
+  }
+
+  updateUser(userId: number, userData: Partial<User>): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/user/${userId}`, userData);
+  }
+  
 }

@@ -75,7 +75,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'personal-info',
+        path: 'personal-info/:id',
         loadComponent: () =>
           import('./pages/personal-info/personal-info.component').then(
             (m) => m.PersonalInfoComponent
