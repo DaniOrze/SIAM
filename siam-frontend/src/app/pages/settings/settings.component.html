@@ -7,7 +7,7 @@
     <nz-col nzSpan="8">
       <nz-card nzHoverable nzTitle="Informações Pessoais" class="custom-card">
         <p>Atualize seu nome, email e telefone.</p>
-        <a routerLink="/personal-info">
+        <a [routerLink]="['/personal-info', userId]">
           <button nz-button nzType="primary" class="button-style custom-border-input">Editar</button>
         </a>
       </nz-card>

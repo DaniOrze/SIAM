@@ -20,4 +20,9 @@ export interface RegisterResponse {
 
 export interface LoginResponse {
   token: string;
+  userId: number;
+}
+
+export interface UserResponse {
+  user: User;
 }
