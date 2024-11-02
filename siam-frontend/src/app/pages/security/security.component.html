@@ -1,49 +1,79 @@
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-    <h2>Alteração de Senha</h2>
-  </nz-row>
-  
-  <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-    <div class="form-container">
-      <form nz-form nzLayout="vertical">
-        <!-- Seleção do usuário -->
-        <nz-row [nzGutter]="16">
-          <nz-col nzSpan="24">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'user'" nzRequired>Selecionar Usuário</nz-form-label>
-              <nz-form-control>
-                <nz-select id="user" name="user" nzPlaceHolder="Escolha um usuário" class="rounded-input custom-border-input">
-                  <nz-option *ngFor="let user of users" [nzValue]="user.id" [nzLabel]="user.name"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-  
-        <!-- Nova Senha -->
-        <nz-row [nzGutter]="16">
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'newPassword'" nzRequired>Nova Senha</nz-form-label>
-              <nz-form-control>
-                <input nz-input id="newPassword" name="newPassword" type="password" class="rounded-input custom-border-input" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label [nzFor]="'confirmPassword'" nzRequired>Confirmar Senha</nz-form-label>
-              <nz-form-control>
-                <input nz-input id="confirmPassword" name="confirmPassword" type="password" class="rounded-input custom-border-input" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-  
-        <!-- Botão de envio -->
-        <nz-form-item class="button-center">
-          <button nz-button class="button-style custom-border-input" nzType="primary">Alterar Senha</button>
-        </nz-form-item>
-      </form>
-    </div>
-  </nz-row>
-  
+  <h2>Alteração de Senha</h2>
+</nz-row>
+
+<nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
+  <div class="form-container">
+    <form
+      nz-form
+      nzLayout="vertical"
+      [formGroup]="passwordForm"
+      (ngSubmit)="changePassword()"
+    >
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'oldPassword'" nzRequired
+              >Senha Atual</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="oldPassword"
+                formControlName="oldPassword"
+                type="password"
+                class="rounded-input custom-border-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'newPassword'" nzRequired
+              >Nova Senha</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="newPassword"
+                formControlName="newPassword"
+                type="password"
+                class="rounded-input custom-border-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label [nzFor]="'confirmPassword'" nzRequired
+              >Confirmar Senha</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                type="password"
+                class="rounded-input custom-border-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
+      <nz-form-item class="button-center">
+        <button
+          nz-button
+          class="button-style custom-border-input"
+          nzType="primary"
+          [disabled]="passwordForm.invalid"
+        >
+          Alterar Senha
+        </button>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-row>
