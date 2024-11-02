@@ -95,13 +95,11 @@ export const loginUser = async (req: Request, res: Response) => {
       }
     );
 
-    res
-      .status(200)
-      .json({
-        message: "Login realizado com sucesso!",
-        token,
-        userId: user.id,
-      });
+    res.status(200).json({
+      message: "Login realizado com sucesso!",
+      token,
+      userId: user.id,
+    });
   } catch (error) {
     console.error("Erro ao realizar login:", error);
     res.status(500).json({ error: "Erro ao realizar login." });
@@ -180,5 +178,37 @@ export const editUser = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Erro ao atualizar usuário:", error);
     res.status(500).json({ error: "Erro ao atualizar usuário." });
+  }
+};
+
+export const changePassword = async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id);
+  const {
+    oldPassword,
+    newPassword,
+  }: { oldPassword: string; newPassword: string } = req.body;
+
+  try {
+    const client = await pool.connect();
+
+    const result = await client.query(
+      "SELECT password FROM users WHERE id = $1",
+      [userId]
+    );
+
+    const user = result.rows[0];
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await client.query("UPDATE users SET password = $1 WHERE id = $2", [
+      hashedNewPassword,
+      userId,
+    ]);
+
+    client.release();
+    res.status(200).json({ message: "Senha alterada com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao alterar senha:", error);
+    res.status(500).json({ error: "Erro ao alterar senha." });
   }
 };

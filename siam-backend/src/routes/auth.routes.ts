@@ -4,6 +4,7 @@ import {
   loginUser,
   getUserById,
   editUser,
+  changePassword,
 } from "../controllers/auth.controller";
 
 const router = express.Router();
@@ -224,5 +225,48 @@ router.get("/users/:id", getUserById);
  *         description: Erro ao atualizar usuário
  */
 router.put("/user/:id", editUser);
+
+/**
+ * @swagger
+ * /users/{id}/change-password:
+ *   put:
+ *     tags: [Auth]
+ *     summary: Altera a senha de um usuário
+ *     description: Permite que um usuário altere sua senha com base no ID fornecido. É necessário fornecer a senha antiga e a nova senha.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do usuário cuja senha será alterada
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - oldPassword
+ *               - newPassword
+ *             properties:
+ *               oldPassword:
+ *                 type: string
+ *                 description: A senha atual do usuário
+ *               newPassword:
+ *                 type: string
+ *                 description: A nova senha que o usuário deseja definir
+ *     responses:
+ *       200:
+ *         description: Senha alterada com sucesso
+ *       400:
+ *         description: Requisição inválida, possivelmente devido a uma senha antiga incorreta ou formatação inválida da nova senha
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro ao alterar a senha do usuário
+ */
+
+router.put("/users/:id/change-password", changePassword);
 
 export default router;
