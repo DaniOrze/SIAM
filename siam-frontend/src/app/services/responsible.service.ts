@@ -8,7 +8,7 @@ import { Responsible } from '../models/responsible.model';
   providedIn: 'root',
 })
 export class ResponsibleService {
-  private readonly apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = 'http://localhost:3000/responsible';
   private readonly endpoints = {
     add: `${this.apiUrl}/new-responsibles`,
     getAll: `${this.apiUrl}/get-responsibles`,

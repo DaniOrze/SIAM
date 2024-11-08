@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class AdherenceService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'http://localhost:3000/adherence';
 
   constructor(private http: HttpClient) {}
 
