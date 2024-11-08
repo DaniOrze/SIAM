@@ -8,7 +8,7 @@ import { Alert } from '../models/alert.model';
   providedIn: 'root',
 })
 export class AlertService {
-  private readonly apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = 'http://localhost:3000/alert';
   private readonly endpoints = {
     add: `${this.apiUrl}/new-alerts`,
     getAll: `${this.apiUrl}/get-alerts`,

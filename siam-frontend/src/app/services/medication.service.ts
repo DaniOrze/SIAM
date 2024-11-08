@@ -8,7 +8,7 @@ import { Medication } from '../models/medication.model';
   providedIn: 'root',
 })
 export class MedicationService {
-  private readonly apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = 'http://localhost:3000/medication';
   private readonly endpoints = {
     add: `${this.apiUrl}/new-medications`,
     getAll: `${this.apiUrl}/get-medications`,

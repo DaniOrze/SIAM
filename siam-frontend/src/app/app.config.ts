@@ -11,9 +11,13 @@ import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
+import {
+  provideHttpClient,
+  HTTP_INTERCEPTORS,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 import {
   DashboardOutline,
@@ -26,6 +30,7 @@ import {
   MenuFoldOutline,
   MenuUnfoldOutline,
 } from '@ant-design/icons-angular/icons';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 registerLocaleData(pt);
 
@@ -47,7 +52,12 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(pt_BR),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     importProvidersFrom(
       NgxEchartsModule.forRoot({
         echarts: () => import('echarts'),
