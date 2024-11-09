@@ -17,7 +17,7 @@ const router = Router();
 
 /**
  * @swagger
- * /register-dose:
+ * /adherence/register-dose:
  *   post:
  *     tags:
  *       - Adherence
@@ -46,7 +46,7 @@ router.post("/register-dose", registerDose);
 
 /**
  * @swagger
- * /get-adherence-data:
+ * /adherence/get-adherence-data:
  *   get:
  *     tags:
  *       - Adherence
@@ -78,7 +78,7 @@ router.get("/get-adherence-data", getAdherenceData);
 
 /**
  * @swagger
- * /get-missed-doses-by-week:
+ * /adherence/get-missed-doses-by-week:
  *   get:
  *     tags:
  *       - Adherence
@@ -110,7 +110,7 @@ router.get("/get-missed-doses-by-week", getMissedDosesByWeek);
 
 /**
  * @swagger
- * /get-daily-consumption:
+ * /adherence/get-daily-consumption:
  *   get:
  *     tags:
  *       - Adherence

@@ -18,7 +18,7 @@ const router = Router();
 
 /**
  * @swagger
- * /new-alerts:
+ * /alert/new-alerts:
  *   post:
  *     tags:
  *       - Alert
@@ -53,7 +53,7 @@ router.post("/new-alerts", createAlert);
 
 /**
  * @swagger
- * /get-alerts:
+ * /alert/get-alerts:
  *   get:
  *     tags:
  *       - Alert
@@ -92,7 +92,7 @@ router.get("/get-alerts", getAlerts);
 
 /**
  * @swagger
- * /delete-alerts/{id}:
+ * /alert/delete-alerts/{id}:
  *   delete:
  *     tags:
  *       - Alert
@@ -115,7 +115,7 @@ router.delete("/delete-alerts/:id", deleteAlert);
 
 /**
  * @swagger
- * /edit-alerts/{id}:
+ * /alert/edit-alerts/{id}:
  *   put:
  *     tags:
  *       - Alert
@@ -157,7 +157,7 @@ router.put("/edit-alerts/:id", editAlert);
 
 /**
  * @swagger
- * /get-alert/{id}:
+ * /alert/get-alert/{id}:
  *   get:
  *     tags:
  *       - Alert
