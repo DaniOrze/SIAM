@@ -18,7 +18,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /responsibles:
+ * /responsible/responsibles:
  *   post:
  *     tags: [Responsible]
  *     summary: Cria um novo responsável
@@ -48,7 +48,7 @@ router.post("/new-responsibles", createResponsible);
 
 /**
  * @swagger
- * /responsibles:
+ * /responsible/responsibles:
  *   get:
  *     tags: [Responsible]
  *     summary: Retorna uma lista de responsáveis
@@ -80,7 +80,7 @@ router.get("/get-responsibles", getResponsibles);
 
 /**
  * @swagger
- * /responsibles/{id}:
+ * /responsible/responsibles/{id}:
  *   get:
  *     tags: [Responsible]
  *     summary: Retorna os detalhes de um responsável específico
@@ -117,7 +117,7 @@ router.get("/get-responsible/:id", getResponsibleById);
 
 /**
  * @swagger
- * /responsibles/{id}:
+ * /responsible/responsibles/{id}:
  *   put:
  *     tags: [Responsible]
  *     summary: Edita um responsável
@@ -154,7 +154,7 @@ router.put("/edit-responsibles/:id", editResponsible);
 
 /**
  * @swagger
- * /responsibles/{id}:
+ * /responsible/responsibles/{id}:
  *   delete:
  *     tags: [Responsible]
  *     summary: Deleta um responsável

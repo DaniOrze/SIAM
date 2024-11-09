@@ -18,7 +18,7 @@ const router = Router();
 
 /**
  * @swagger
- * /new-medications:
+ * /medication/new-medications:
  *   post:
  *     tags:
  *       - Medication
@@ -64,7 +64,7 @@ router.post("/new-medications", createMedication);
 
 /**
  * @swagger
- * /get-medications:
+ * /medication/get-medications:
  *   get:
  *     tags:
  *       - Medication
@@ -111,7 +111,7 @@ router.get("/get-medications", getMedications);
 
 /**
  * @swagger
- * /delete-medications/{id}:
+ * /medication/delete-medications/{id}:
  *   delete:
  *     tags:
  *       - Medication
@@ -134,7 +134,7 @@ router.delete("/delete-medications/:id", deleteMedication);
 
 /**
  * @swagger
- * /edit-medications/{id}:
+ * /medication/edit-medications/{id}:
  *   put:
  *     tags:
  *       - Medication
@@ -187,7 +187,7 @@ router.put("/edit-medications/:id", editMedication);
 
 /**
  * @swagger
- * /get-medication/{id}:
+ * /medication/get-medication/{id}:
  *   get:
  *     tags:
  *       - Medication
