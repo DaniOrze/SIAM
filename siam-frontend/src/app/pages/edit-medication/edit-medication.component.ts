@@ -140,7 +140,6 @@ export class EditMedicationComponent implements OnInit {
       })
     );
   }
-  
 
   removerHorario(index: number) {
     const schedules = this.administrationSchedules;

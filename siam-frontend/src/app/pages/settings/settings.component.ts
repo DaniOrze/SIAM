@@ -8,9 +8,16 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, NzGridModule, NzCardModule, NzButtonModule, RouterLink, RouterOutlet],
+  imports: [
+    CommonModule,
+    NzGridModule,
+    NzCardModule,
+    NzButtonModule,
+    RouterLink,
+    RouterOutlet,
+  ],
   templateUrl: './settings.component.html',
-  styleUrl: './settings.component.css'
+  styleUrl: './settings.component.css',
 })
 export class SettingsComponent implements OnInit {
   userId: number | null = null;

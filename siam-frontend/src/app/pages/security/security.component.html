@@ -3,7 +3,7 @@
 </nz-row>
 
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-  <div class="form-container">
+  <div>
     <form
       nz-form
       nzLayout="vertical"
@@ -11,11 +11,11 @@
       (ngSubmit)="changePassword()"
     >
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="24">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
-            <nz-form-label [nzFor]="'oldPassword'" nzRequired
-              >Senha Atual</nz-form-label
-            >
+            <nz-form-label [nzFor]="'oldPassword'" nzRequired>
+              Senha Atual
+            </nz-form-label>
             <nz-form-control>
               <input
                 nz-input
@@ -30,11 +30,11 @@
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
-            <nz-form-label [nzFor]="'newPassword'" nzRequired
-              >Nova Senha</nz-form-label
-            >
+            <nz-form-label [nzFor]="'newPassword'" nzRequired>
+              Nova Senha
+            </nz-form-label>
             <nz-form-control>
               <input
                 nz-input
@@ -46,11 +46,12 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
-            <nz-form-label [nzFor]="'confirmPassword'" nzRequired
-              >Confirmar Senha</nz-form-label
-            >
+            <nz-form-label [nzFor]="'confirmPassword'" nzRequired>
+              Confirmar Senha
+            </nz-form-label>
             <nz-form-control>
               <input
                 nz-input

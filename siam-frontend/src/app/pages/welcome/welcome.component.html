@@ -3,7 +3,7 @@
 </nz-row>
 
 <div class="card-row" nz-row [nzGutter]="16">
-  <div nz-col nzSpan="12" class="card-col">
+  <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12" class="card-col">
     <nz-card nzTitle="Próximo Medicamento">
       <ul *ngIf="nextMedication">
         <li><strong>Medicamento:</strong> {{ nextMedication.name }}</li>
@@ -16,7 +16,7 @@
     </nz-card>
   </div>
 
-  <div nz-col nzSpan="12" class="card-col">
+  <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12" class="card-col">
     <nz-card nzTitle="Medicamentos do Dia">
       <ul>
         <li *ngFor="let medication of dailyMedications">
@@ -36,7 +36,7 @@
 </div>
 
 <div class="card-row" nz-row [nzGutter]="16">
-  <div nz-col nzSpan="12" class="card-col">
+  <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12" class="card-col">
     <nz-card nzTitle="Dispensação de Medicamentos">
       <div
         echarts
@@ -46,7 +46,7 @@
     </nz-card>
   </div>
 
-  <div nz-col nzSpan="12" class="card-col">
+  <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12" class="card-col">
     <nz-card nzTitle="Adesão ao Tratamento">
       <div
         echarts
