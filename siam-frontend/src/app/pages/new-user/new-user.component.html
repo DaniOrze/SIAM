@@ -3,7 +3,7 @@
 </nz-row>
 
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-  <div class="form-container">
+  <div>
     <form
       [formGroup]="newUserForm"
       nz-form
@@ -11,11 +11,11 @@
       (ngSubmit)="submitForm()"
     >
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
-            <nz-form-label [nzFor]="'fullName'" nzRequired
-              >Nome Completo</nz-form-label
-            >
+            <nz-form-label [nzFor]="'fullName'" nzRequired>
+              Nome Completo
+            </nz-form-label>
             <nz-form-control>
               <input
                 nz-input
@@ -26,7 +26,8 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'cpf'" nzRequired>CPF</nz-form-label>
             <nz-form-control>
@@ -44,7 +45,7 @@
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'rg'">RG</nz-form-label>
             <nz-form-control>
@@ -57,11 +58,12 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
-            <nz-form-label [nzFor]="'birthdate'" nzRequired
-              >Data de Nascimento</nz-form-label
-            >
+            <nz-form-label [nzFor]="'birthdate'" nzRequired>
+              Data de Nascimento
+            </nz-form-label>
             <nz-form-control>
               <nz-date-picker
                 formControlName="birthdate"
@@ -74,11 +76,11 @@
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
-            <nz-form-label [nzFor]="'phoneNumber'" nzRequired
-              >Telefone</nz-form-label
-            >
+            <nz-form-label [nzFor]="'phoneNumber'" nzRequired>
+              Telefone
+            </nz-form-label>
             <nz-form-control>
               <input
                 nz-input
@@ -91,7 +93,8 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'email'" nzRequired>Email</nz-form-label>
             <nz-form-control>
@@ -108,7 +111,7 @@
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'address'">Endereço</nz-form-label>
             <nz-form-control>
@@ -121,7 +124,8 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="6">
+
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6">
           <nz-form-item>
             <nz-form-label [nzFor]="'city'">Cidade</nz-form-label>
             <nz-form-control>
@@ -134,7 +138,8 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="6">
+
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6">
           <nz-form-item>
             <nz-form-label [nzFor]="'zipCode'">CEP</nz-form-label>
             <nz-form-control>
@@ -150,7 +155,7 @@
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="24">
+        <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24">
           <nz-form-item>
             <nz-form-label [nzFor]="'observations'">Observações</nz-form-label>
             <nz-form-control>

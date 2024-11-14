@@ -11,7 +11,7 @@
       (ngSubmit)="onSubmit()"
     >
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'name'" nzRequired
               >Nome do Medicamento</nz-form-label
@@ -26,7 +26,7 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+        <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'dosage'" nzRequired
               >Dosagem do Medicamento (mg)</nz-form-label
@@ -48,7 +48,7 @@
         *ngFor="let schedule of administrationSchedules.controls; let i = index"
         [nzGutter]="16"
       >
-        <nz-col nzSpan="12">
+        <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
           <nz-form-item [formGroupName]="i">
             <nz-form-label>Horário de Administração</nz-form-label>
             <nz-form-control>
@@ -61,7 +61,7 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+        <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
           <nz-form-item [formGroupName]="i">
             <nz-form-label>Dias da Semana</nz-form-label>
             <nz-form-control>
@@ -99,7 +99,7 @@
       </nz-row>
 
       <nz-row [nzGutter]="16">
-        <nz-col nzSpan="12">
+        <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'startDate'" nzRequired
               >Data de Início</nz-form-label
@@ -113,7 +113,7 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-        <nz-col nzSpan="12">
+        <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
           <nz-form-item>
             <nz-form-label [nzFor]="'endDate'">Data de Fim</nz-form-label>
             <nz-form-control>

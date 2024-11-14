@@ -1,19 +1,17 @@
 <nz-row [nzJustify]="'center'" [nzAlign]="'middle'">
-    <h2>Monitoramento de Adesão ao Medicamento</h2>
-  </nz-row>
+  <h2>Monitoramento de Adesão ao Medicamento</h2>
+</nz-row>
 
 <div class="monitoring-page">
-  
-    <div class="chart-container">
-      <div echarts [options]="adherenceOptions" class="chart"></div>
-    </div>
-  
-    <div class="chart-container">
-      <div echarts [options]="missedDosesOptions" class="chart"></div>
-    </div>
-  
-    <div class="chart-container">
-      <div echarts [options]="dailyConsumptionOptions" class="chart"></div>
-    </div>
+  <div class="chart-container">
+    <div echarts [options]="adherenceOptions" class="chart"></div>
   </div>
-  
+
+  <div class="chart-container">
+    <div echarts [options]="missedDosesOptions" class="chart"></div>
+  </div>
+
+  <div class="chart-container">
+    <div echarts [options]="dailyConsumptionOptions" class="chart"></div>
+  </div>
+</div>

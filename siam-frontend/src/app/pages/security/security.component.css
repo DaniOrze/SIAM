@@ -1,47 +1,40 @@
-.form-container {
-    max-width: 800px; 
-    margin: 0 auto;
-    padding: 0 16px;
-  }
-  
-  .rounded-input {
-    height: 3.5em;
-    border-radius: 20px;
-    background-color: #edecff; 
-  }
+.rounded-input {
+  height: 3.5em;
+  border-radius: 20px;
+  background-color: #edecff;
+}
 
-  .text-input {
-    border-radius: 20px;
-    background-color: #edecff; 
-  }
-  
-  .button-center {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .button-style {
-    width: 15em;
-    height: 3.2em;
-    border-radius: 20px;
-    background-color: #5958A9;
-  }
-  
-  .button-style:hover {
-    background-color: #504CA6;
-  }
-  
-  .center-text {
-    text-align: center;
-  }
-  
-  .custom-border-input {
-    border-color: #5958A9;
-  }
-  
-  .custom-border-input:focus {
-    border-color: #504CA6; 
-    box-shadow: 0 0 5px rgba(80, 76, 166, 0.5);
-  }
-  
+.text-input {
+  border-radius: 20px;
+  background-color: #edecff;
+}
+
+.button-center {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-style {
+  width: 15em;
+  height: 3.2em;
+  border-radius: 20px;
+  background-color: #5958a9;
+}
+
+.button-style:hover {
+  background-color: #504ca6;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.custom-border-input {
+  border-color: #5958a9;
+}
+
+.custom-border-input:focus {
+  border-color: #504ca6;
+  box-shadow: 0 0 5px rgba(80, 76, 166, 0.5);
+}
