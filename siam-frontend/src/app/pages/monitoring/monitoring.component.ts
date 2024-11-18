@@ -76,38 +76,47 @@ export class MonitoringComponent implements OnInit {
     this.adherenceService
       .getMissedDosesByWeek()
       .subscribe((data: MissedDosesByWeek[]) => {
+        const processedData = data.map((item) => ({
+          ...item,
+          missed_count: Number(item.missed_count),
+          week: new Date(item.week).toISOString().slice(0, 10),
+        }));
+
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        const filteredData = processedData.filter((item) => {
+          const weekDate = new Date(item.week);
+          return (
+            weekDate.getMonth() === currentMonth &&
+            weekDate.getFullYear() === currentYear
+          );
+        });
+
+        const allWeeks = Array.from(
+          new Set(filteredData.map((item) => item.week))
+        ).sort();
+
         const weekMap = new Map<string, string>();
         let weekCounter = 1;
+        allWeeks.forEach((week) => {
+          const weekStartDate = new Date(week);
+          const weekEndDate = new Date(weekStartDate);
+          weekEndDate.setDate(weekEndDate.getDate() + 6);
 
-        const weeks = [
-          ...new Set(
-            data.map((item: MissedDosesByWeek) => {
-              const weekStartDate = new Date(item.week);
-              const weekEndDate = new Date(weekStartDate);
-              weekEndDate.setDate(weekEndDate.getDate() + 6);
+          const formattedWeek = `Semana ${weekCounter++} (${weekStartDate.toLocaleDateString(
+            'pt-BR'
+          )} - ${weekEndDate.toLocaleDateString('pt-BR')})`;
+          weekMap.set(week, formattedWeek);
+        });
 
-              const weekKey = weekStartDate.toISOString().slice(0, 10);
-
-              if (!weekMap.has(weekKey)) {
-                const formattedWeek = `Semana ${weekCounter++} (${weekStartDate.toLocaleDateString(
-                  'pt-BR'
-                )} - ${weekEndDate.toLocaleDateString('pt-BR')})`;
-                weekMap.set(weekKey, formattedWeek);
-              }
-
-              return weekMap.get(weekKey);
-            })
-          ),
-        ].filter((week): week is string => !!week);
-
-        const seriesData = data.reduce(
-          (acc: Record<string, number[]>, item: MissedDosesByWeek) => {
-            acc[item.name] = acc[item.name] || [];
-            acc[item.name].push(item.missed_count);
-            return acc;
-          },
-          {}
-        );
+        const seriesData: Record<string, number[]> = {};
+        filteredData.forEach((item) => {
+          if (!seriesData[item.name]) {
+            seriesData[item.name] = Array(allWeeks.length).fill(0);
+          }
+          const weekIndex = allWeeks.indexOf(item.week);
+          seriesData[item.name][weekIndex] = item.missed_count;
+        });
 
         const series = Object.keys(seriesData).map((name) => ({
           name,
@@ -120,13 +129,13 @@ export class MonitoringComponent implements OnInit {
           tooltip: { trigger: 'axis' },
           xAxis: {
             type: 'category',
-            data: weeks,
+            data: Array.from(weekMap.values()),
           },
-          yAxis: {
-            type: 'value',
-          },
+          yAxis: { type: 'value' },
           series: series as EChartsOption['series'],
         };
+
+        console.log('Opções finais do gráfico:', this.missedDosesOptions);
       });
   }
 
@@ -134,20 +143,23 @@ export class MonitoringComponent implements OnInit {
     this.adherenceService
       .getDailyConsumption()
       .subscribe((data: DailyConsumption[]) => {
-        const daysOfWeek = [
-          ...new Set(
-            data.map(
-              (item: DailyConsumption) =>
-                this.dayOfWeekMap[item.day_of_week.trim()] ||
-                item.day_of_week.trim()
-            )
-          ),
-        ];
+        const dayOrder = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+        dayOrder.filter((day) =>
+          data.some(
+            (item: DailyConsumption) =>
+              this.dayOfWeekMap[item.day_of_week.trim()] === day
+          )
+        );
 
         const seriesData = data.reduce(
           (acc: Record<string, number[]>, item: DailyConsumption) => {
-            acc[item.name] = acc[item.name] || [];
-            acc[item.name].push(item.taken_count);
+            const mappedDay =
+              this.dayOfWeekMap[item.day_of_week.trim()] ||
+              item.day_of_week.trim();
+            const dayIndex = dayOrder.indexOf(mappedDay);
+            acc[item.name] =
+              acc[item.name] || new Array(dayOrder.length).fill(0);
+            acc[item.name][dayIndex] = item.taken_count;
             return acc;
           },
           {}
@@ -165,7 +177,7 @@ export class MonitoringComponent implements OnInit {
           legend: { data: Object.keys(seriesData) },
           xAxis: {
             type: 'category',
-            data: daysOfWeek,
+            data: dayOrder,
           },
           yAxis: {
             type: 'value',

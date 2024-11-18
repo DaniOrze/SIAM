@@ -146,6 +146,13 @@ export const getMissedDosesByWeek = async (req: Request, res: Response) => {
 
 export const getDailyConsumption = async (req: Request, res: Response) => {
   try {
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
     const result = await pool.query(
       `SELECT m.name, 
               COUNT(CASE WHEN ml.taken THEN 1 END) AS taken_count, 
@@ -153,8 +160,11 @@ export const getDailyConsumption = async (req: Request, res: Response) => {
        FROM medications m
        LEFT JOIN medication_logs ml ON m.id = ml.medication_id
        WHERE ml.taken = true
+         AND ml.date_taken >= $1
+         AND ml.date_taken <= $2
        GROUP BY m.name, day_of_week
-       ORDER BY day_of_week`
+       ORDER BY day_of_week`,
+      [startOfWeek, endOfWeek]
     );
 
     const dailyConsumptionData: {
