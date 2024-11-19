@@ -89,7 +89,6 @@ export const deleteMedication = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Medicamento deletado com sucesso!" });
   } catch (error) {
-    await client.query("ROLLBACK");
     console.error("Erro ao deletar medicamento:", error);
     res.status(500).json({ error: "Erro ao deletar medicamento." });
   }

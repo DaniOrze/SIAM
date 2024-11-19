@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../src/index";
+import { app, server } from "../src/index";
 import pool from "../src/config/dbConfig";
 import { generateTestToken } from "../src/utils/testUtils";
 
@@ -19,10 +19,6 @@ describe("Alert Controller with Authentication", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  afterAll(() => {
-    pool.end();
   });
 
   describe("GET /alert/get-alerts", () => {
@@ -306,5 +302,10 @@ describe("Alert Controller with Authentication", () => {
 
       consoleSpy.mockRestore();
     });
+  });
+
+  afterAll(async () => {
+    await pool.end();
+    server.close();
   });
 });
