@@ -46,7 +46,6 @@ export const createResponsible = async (req: Request, res: Response) => {
       .status(201)
       .json({ message: "Responsável cadastrado com sucesso!", responsibleId });
   } catch (error) {
-    await pool.query("ROLLBACK");
     console.error("Erro ao cadastrar responsável:", error);
     res.status(500).json({ error: "Erro ao cadastrar responsável." });
   }
@@ -122,7 +121,6 @@ export const editResponsible = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Responsável atualizado com sucesso!" });
   } catch (error) {
-    await client.query("ROLLBACK");
     console.error("Erro ao atualizar responsável:", error);
     res.status(500).json({ error: "Erro ao atualizar responsável." });
   }
@@ -144,7 +142,6 @@ export const deleteResponsible = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Responsável deletado com sucesso!" });
   } catch (error) {
-    await client.query("ROLLBACK");
     console.error("Erro ao deletar responsável:", error);
     res.status(500).json({ error: "Erro ao deletar responsável." });
   }
