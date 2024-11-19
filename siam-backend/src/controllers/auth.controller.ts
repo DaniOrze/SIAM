@@ -55,7 +55,6 @@ export const registerUser = async (req: Request, res: Response) => {
       .status(201)
       .json({ message: "Usuário registrado com sucesso!", userId });
   } catch (error) {
-    await pool.query("ROLLBACK");
     console.error("Erro ao registrar usuário:", error);
     res.status(500).json({ error: "Erro ao registrar usuário." });
   }
@@ -119,11 +118,6 @@ export const getUserById = async (req: Request, res: Response) => {
       [userId]
     );
     client.release();
-
-    if (result.rows.length === 0) {
-      res.status(404).json({ error: "Usuário não encontrado." });
-      return;
-    }
 
     const user = result.rows[0];
     res.status(200).json({ user });
