@@ -130,7 +130,6 @@ export const editMedication = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Medicamento atualizado com sucesso!" });
   } catch (error) {
-    await client.query("ROLLBACK");
     res.status(500).json({ error: "Erro ao atualizar o medicamento." });
   }
 };

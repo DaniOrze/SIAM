@@ -302,6 +302,70 @@ describe("Medication Controller with Authentication", () => {
     });
   });
 
+  describe("PUT /medication/edit-medications/:id", () => {
+    it("deve atualizar um medicamento com sucesso", async () => {
+      const mockResponse = { rowCount: 1 };
+      (pool.connect as jest.Mock).mockResolvedValue({
+        query: jest.fn().mockResolvedValue(mockResponse),
+        release: jest.fn(),
+      });
+
+      const medicationData = {
+        id: 1,
+        name: "Updated Test Medication",
+        dosage: "2x ao dia",
+        administrationSchedules: [
+          { time: "08:00", daysOfWeek: ["Segunda", "Quarta"] },
+        ],
+        startDate: "2024-11-01",
+        endDate: "2024-12-01",
+        observations: "Observações atualizadas",
+      };
+
+      const response = await request(app)
+        .put(`/medication/edit-medications/${medicationData.id}`)
+        .set("Authorization", `Bearer ${generateTestToken()}`)
+        .send(medicationData);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe("Medicamento atualizado com sucesso!");
+    });
+
+    it("deve capturar e logar erro no console ao tentar atualizar medicamento e retornar erro 500", async () => {
+      const mockError = new Error("Erro simulado ao atualizar medicamento");
+      (pool.connect as jest.Mock).mockResolvedValue({
+        query: jest.fn().mockRejectedValue(mockError),
+        release: jest.fn(),
+      });
+
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const medicationData = {
+        id: 1,
+        name: "Updated Test Medication",
+        dosage: "2x ao dia",
+        administrationSchedules: [
+          { time: "08:00", daysOfWeek: ["Segunda", "Quarta"] },
+        ],
+        startDate: "2024-11-01",
+        endDate: "2024-12-01",
+        observations: "Observações atualizadas",
+      };
+
+      const response = await request(app)
+        .put(`/medication/edit-medications/${medicationData.id}`)
+        .set("Authorization", `Bearer ${generateTestToken()}`)
+        .send(medicationData);
+
+      expect(response.status).toBe(500);
+      expect(response.body.error).toBe("Erro ao atualizar o medicamento.");
+
+      consoleSpy.mockRestore();
+    });
+  });
+
   afterAll(async () => {
     await pool.end();
     server.close();
