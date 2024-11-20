@@ -54,6 +54,30 @@ describe("Medication Controller with Authentication", () => {
       expect(response.body.message).toBe("Medicamento criado com sucesso!");
       expect(response.body.medicationId).toBeDefined();
     });
+
+    it("deve criar um medicamento com sucesso usando null", async () => {
+      const medicationData = {
+        name: "Test Medication",
+        dosage: "2x ao dia",
+        administrationSchedules: [
+          { time: "08:00", daysOfWeek: ["Segunda", "Quarta", "Sexta"] },
+          { time: "20:00", daysOfWeek: ["Segunda", "Quarta", "Sexta"] },
+        ],
+        startDate: "2024-11-01",
+        endDate: null,
+        observations: null,
+      };
+
+      const response = await request(app)
+        .post("/medication/new-medications")
+        .set("Authorization", `Bearer ${token}`)
+        .send(medicationData);
+
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe("Medicamento criado com sucesso!");
+      expect(response.body.medicationId).toBeDefined();
+    });
+
   });
   it("deve capturar e logar erro no console ao criar medicamento", async () => {
     const mockError = new Error("Erro simulado ao inserir medicamento");
@@ -320,6 +344,34 @@ describe("Medication Controller with Authentication", () => {
         startDate: "2024-11-01",
         endDate: "2024-12-01",
         observations: "Observações atualizadas",
+      };
+
+      const response = await request(app)
+        .put(`/medication/edit-medications/${medicationData.id}`)
+        .set("Authorization", `Bearer ${generateTestToken()}`)
+        .send(medicationData);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe("Medicamento atualizado com sucesso!");
+    });
+
+    it("deve atualizar um medicamento com sucesso usando null", async () => {
+      const mockResponse = { rowCount: 1 };
+      (pool.connect as jest.Mock).mockResolvedValue({
+        query: jest.fn().mockResolvedValue(mockResponse),
+        release: jest.fn(),
+      });
+
+      const medicationData = {
+        id: 1,
+        name: "Updated Test Medication",
+        dosage: "2x ao dia",
+        administrationSchedules: [
+          { time: "08:00", daysOfWeek: ["Segunda", "Quarta"] },
+        ],
+        startDate: "2024-11-01",
+        endDate: null,
+        observations: null,
       };
 
       const response = await request(app)

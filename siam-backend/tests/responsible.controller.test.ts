@@ -108,6 +108,30 @@ describe("Responsible Controller with Authentication", () => {
       expect(response.body.message).toBe("Responsável cadastrado com sucesso!");
       expect(response.body.responsibleId).toBe(1);
     });
+
+    it("deve criar um responsável com sucesso usando null", async () => {
+      const responsibleData = {
+        fullName: "John Doe",
+        cpf: "12345678901",
+        rg: null,
+        birthdate: "1980-01-01",
+        phoneNumber: "1234567890",
+        email: "johndoe@example.com",
+        address: null,
+        city: null,
+        zipCode: null,
+        observations: null,
+      };
+
+      const response = await request(app)
+        .post("/responsible/new-responsibles")
+        .set("Authorization", `Bearer ${token}`)
+        .send(responsibleData);
+
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe("Responsável cadastrado com sucesso!");
+      expect(response.body.responsibleId).toBe(1);
+    });
   });
 
   describe("POST /responsible/new-responsibles", () => {
@@ -220,6 +244,37 @@ describe("Responsible Controller with Authentication", () => {
         city: "Cidade Exemplo",
         zipCode: "12345678",
         observations: "Observações do responsável",
+      };
+
+      const response = await request(app)
+        .put(`/responsible/edit-responsibles/${responsibleId}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(updatedResponsible);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe("Responsável atualizado com sucesso!");
+    });
+
+    it("deve atualizar um responsável com sucesso usando null", async () => {
+      const mockResponse = { rowCount: 1 };
+      (pool.connect as jest.Mock).mockResolvedValue({
+        query: jest.fn().mockResolvedValue(mockResponse),
+        release: jest.fn(),
+      });
+
+      const responsibleId = 1;
+      const updatedResponsible = {
+        id: responsibleId,
+        fullName: "Responsável Atualizado",
+        cpf: "12345678901",
+        rg: null,
+        birthdate: "1990-01-01",
+        phoneNumber: "987654321",
+        email: "responsavel@exemplo.com",
+        address: null,
+        city: null,
+        zipCode: null,
+        observations: null,
       };
 
       const response = await request(app)

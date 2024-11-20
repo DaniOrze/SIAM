@@ -65,6 +65,32 @@ describe("User Controller", () => {
     });
   });
 
+
+  describe("User Controller - Register User with null", () => {
+    const newUser = {
+      fullName: "John Doe",
+      nickname: null,
+      email: "john.doe@example.com",
+      phoneNumber: "123456789",
+      cpf: "12345678901",
+      birthdate: "1990-01-01",
+      address: null,
+      city: null,
+      zipCode: null,
+      observations: null,
+      username: "john.doe",
+      password: "securePassword123",
+    };
+
+    it("deve registrar o usuário com sucesso usando null", async () => {
+      const response = await request(app).post("/signup").send(newUser);
+
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe("Usuário registrado com sucesso!");
+      expect(response.body.userId).toBeDefined();
+    });
+  });
+
   describe("User Controller - Login User", () => {
     const validUser = {
       username: "john.doe",
@@ -213,6 +239,37 @@ describe("User Controller", () => {
 
       expect(response.status).toBe(500);
       expect(response.body.error).toBe("Erro ao atualizar usuário.");
+    });
+  });
+
+  describe("User Controller - Edit User with null", () => {
+    const updatedUser = {
+      fullName: "John Doe Updated",
+      nickname: null,
+      email: "john.updated@example.com",
+      phoneNumber: "987654321",
+      cpf: "12345678901",
+      birthdate: "1990-01-01",
+      address: null,
+      city: null,
+      zipCode: null,
+      observations: null,
+    };
+
+    it("deve atualizar as informações do usuário com sucesso usando null", async () => {
+      const mockUserId = 1;
+
+      (pool.connect as jest.Mock).mockResolvedValue({
+        query: jest.fn().mockResolvedValue({ rowCount: 1 }),
+        release: jest.fn(),
+      });
+
+      const response = await request(app)
+        .put(`/user/${mockUserId}`)
+        .send(updatedUser);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe("Usuário atualizado com sucesso!");
     });
   });
 
