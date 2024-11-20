@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonitoringComponent } from './monitoring.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 
 describe('MonitoringComponent', () => {
   let component: MonitoringComponent;
@@ -8,7 +10,13 @@ describe('MonitoringComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MonitoringComponent]
+      imports: [MonitoringComponent, HttpClientModule],
+      providers: [
+        {
+          provide: NGX_ECHARTS_CONFIG,
+          useValue: {},
+        },
+      ],
     })
     .compileComponents();
 
