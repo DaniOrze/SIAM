@@ -5,3 +5,5 @@
 dbConfig.ts
 jwtConfig.ts
 swagger.ts
+
+/coverage
