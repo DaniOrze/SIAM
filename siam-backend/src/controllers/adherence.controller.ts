@@ -19,7 +19,6 @@ export const registerDose = async (req: Request, res: Response) => {
     client.release();
     res.status(201).json({ message: "Dose registrada com sucesso!" });
   } catch (error) {
-    await pool.query("ROLLBACK");
     console.error("Erro ao registrar dose:", error);
     res.status(500).json({ error: "Erro ao registrar dose." });
     return;
@@ -31,11 +30,6 @@ export const registerDose = async (req: Request, res: Response) => {
         `SELECT name, dosage FROM medications WHERE id = $1`,
         [medicationId]
       );
-
-      if (medicationResult.rows.length === 0) {
-        console.error("Medicamento não encontrado.");
-        res.status(404).json({ error: "Medicamento não encontrado." });
-      }
 
       const { name, dosage } = medicationResult.rows[0];
 

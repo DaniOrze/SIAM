@@ -18,7 +18,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /responsible/responsibles:
+ * /responsible/new-responsibles:
  *   post:
  *     tags: [Responsible]
  *     summary: Cria um novo responsável
@@ -30,14 +30,32 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               fullName:
  *                 type: string
+ *               cpf:
+ *                 type: string
+ *               rg:
+ *                 type: string
+ *                 nullable: true
+ *               birthdate:
+ *                 type: string
+ *                 format: date
  *               phoneNumber:
  *                 type: string
  *               email:
  *                 type: string
- *               relationship:
+ *               address:
  *                 type: string
+ *                 nullable: true
+ *               city:
+ *                 type: string
+ *                 nullable: true
+ *               zipCode:
+ *                 type: string
+ *                 nullable: true
+ *               observations:
+ *                 type: string
+ *                 nullable: true
  *     responses:
  *       201:
  *         description: Responsável criado com sucesso
@@ -48,7 +66,7 @@ router.post("/new-responsibles", createResponsible);
 
 /**
  * @swagger
- * /responsible/responsibles:
+ * /responsible/get-responsibles:
  *   get:
  *     tags: [Responsible]
  *     summary: Retorna uma lista de responsáveis
@@ -65,13 +83,21 @@ router.post("/new-responsibles", createResponsible);
  *                 properties:
  *                   id:
  *                     type: integer
- *                   name:
+ *                   fullName:
  *                     type: string
  *                   phoneNumber:
  *                     type: string
  *                   email:
  *                     type: string
  *                   relationship:
+ *                     type: string
+ *                   address:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   zipCode:
+ *                     type: string
+ *                   observations:
  *                     type: string
  *       500:
  *         description: Erro ao obter a lista de responsáveis
@@ -80,7 +106,7 @@ router.get("/get-responsibles", getResponsibles);
 
 /**
  * @swagger
- * /responsible/responsibles/{id}:
+ * /responsible/get-responsible/{id}:
  *   get:
  *     tags: [Responsible]
  *     summary: Retorna os detalhes de um responsável específico
@@ -102,13 +128,21 @@ router.get("/get-responsibles", getResponsibles);
  *               properties:
  *                 id:
  *                   type: integer
- *                 name:
+ *                 fullName:
  *                   type: string
  *                 phoneNumber:
  *                   type: string
  *                 email:
  *                   type: string
  *                 relationship:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 zipCode:
+ *                   type: string
+ *                 observations:
  *                   type: string
  *       500:
  *         description: Erro ao obter o responsável
@@ -117,7 +151,7 @@ router.get("/get-responsible/:id", getResponsibleById);
 
 /**
  * @swagger
- * /responsible/responsibles/{id}:
+ * /responsible/edit-responsibles/{id}:
  *   put:
  *     tags: [Responsible]
  *     summary: Edita um responsável
@@ -136,14 +170,34 @@ router.get("/get-responsible/:id", getResponsibleById);
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               id:
+ *                 type: integer
+ *               fullName:
  *                 type: string
+ *               cpf:
+ *                 type: string
+ *               rg:
+ *                 type: string
+ *                 nullable: true
+ *               birthdate:
+ *                 type: string
+ *                 format: date
  *               phoneNumber:
  *                 type: string
  *               email:
  *                 type: string
- *               relationship:
+ *               address:
  *                 type: string
+ *                 nullable: true
+ *               city:
+ *                 type: string
+ *                 nullable: true
+ *               zipCode:
+ *                 type: string
+ *                 nullable: true
+ *               observations:
+ *                 type: string
+ *                 nullable: true
  *     responses:
  *       200:
  *         description: Responsável atualizado com sucesso
@@ -154,7 +208,7 @@ router.put("/edit-responsibles/:id", editResponsible);
 
 /**
  * @swagger
- * /responsible/responsibles/{id}:
+ * /responsible/delete-responsibles/{id}:
  *   delete:
  *     tags: [Responsible]
  *     summary: Deleta um responsável
