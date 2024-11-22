@@ -28,6 +28,8 @@ app.use("/responsible", authenticateToken, responsibleRoutes);
 app.use("/alert", authenticateToken, alertRoutes);
 app.use("/adherence", authenticateToken, adherenceRoutes);
 
-app.listen(port, "0.0.0.0", () => {
+const server = app.listen(port, "0.0.0.0", () => {
   console.log(`Server listening on port ${port}`);
 });
+
+export { app, server };
