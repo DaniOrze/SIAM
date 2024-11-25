@@ -1,0 +1,35 @@
+name: Run Tests on PR and Main Merges
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        project-path: 
+          - './siam-backend'
+          - './siam-frontend'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22' 
+
+      - name: Run Tests
+        working-directory: ${{ matrix.project-path }}
+        run: |
+          npm install
+          npm test
