@@ -1,4 +1,4 @@
-# SIAM - Sistema de Automação e Monitoramento de Dispensação de Medicamentos
+# SIAM - Sistema Inteligente de Administração de Medicamentos
 [![Angular](https://img.shields.io/badge/Angular-%23DD0031.svg?logo=angular&logoColor=white)](#)
 [![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white)](#)
 [![Arduino](https://img.shields.io/badge/Arduino-2496ED?logo=arduino&logoColor=white)](#)
@@ -11,7 +11,26 @@
 
 ## Visão Geral
 
-O **SIAM (Sistema de Automação e Monitoramento)** é um projeto voltado para a automação e monitoramento da dispensação de medicamentos, especialmente direcionado para o cuidado de idosos. O objetivo principal é facilitar a administração correta dos medicamentos em horários específicos, proporcionando maior segurança e precisão, além de garantir que os idosos tomem seus remédios na dosagem e no tempo corretos.
+O **SIAM (Sistema Inteligente de Administração de Medicamentos)** é um projeto voltado para a automação e monitoramento da dispensação de medicamentos, especialmente direcionado para o cuidado de idosos. O objetivo principal é facilitar a administração correta dos medicamentos em horários específicos, proporcionando maior segurança e precisão, além de garantir que os idosos tomem seus remédios na dosagem e no tempo corretos.
+
+<p align="center">
+  <p>
+    <img src="src/assets/login.png" width="400px"/>
+    <img src="src/assets/signup.png" width="400px"/>
+  </p>
+  <p>
+    <img src="src/assets/dash.png" width="400px"/>
+    <img src="src/assets/relatorio.png" width="400px"/>
+  </p>
+    <p>
+    <img src="src/assets/medication.png" width="400px"/>
+    <img src="src/assets/new-medication.png" width="400px"/>
+  </p>
+    <p>
+    <img src="src/assets/monitoring.png" width="400px"/>
+    <img src="src/assets/users.png" width="400px"/>
+  </p>
+</p>
 
 ## Objetivos do Projeto
 
@@ -73,6 +92,7 @@ Para executar este projeto localmente, é necessário ter instalado:
 - Node.js
 - npm (Node Package Manager)
 - Arduino IDE
+- PostgreSQL
 
 ## Inicializando o projeto
 
@@ -132,6 +152,26 @@ npm run dev
 
 A aplicação será iniciada no navegador padrão em: `http://localhost:3000`
 
+### Rodando o Banco de Dados
+
+- Certifique-se de ter o PostgreSQL instalado.
+
+- Crie um banco de dados no PostgreSQL:
+
+```bash
+CREATE DATABASE siam;
+```
+
+- Execute o arquivo SQL localizado na pasta migrations para criar as tabelas e configurações iniciais:
+
+```bash
+psql -U <seu_usuario> -d siam -f migrations/schema.sql
+```
+
+- Substitua <seu_usuario> pelo nome do usuário do PostgreSQL.
+
+- Atualize as configurações do banco de dados no arquivo .env na pasta do backend para refletir suas credenciais.
+
 ### Rodando o Arduino
 
 - Navegue até a pasta do arduino:
@@ -141,6 +181,26 @@ cd siam-arduino
 ```
 
 - Instale as dependências e suba o projeto através do micro-usb para o ESP32.
+
+## Executando o projeto com Docker
+
+- Copie o arquivo .env.example para .env:
+
+```bash
+cp .env.example .env
+```
+
+- Suba os containers usando o Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+- Isso irá inicializar o frontend, backend e banco de dados automaticamente.
+
+- A aplicação frontend será iniciada no navegador padrão em: `http://localhost:4200`
+- A aplicação backend será iniciada no navegador padrão em: `http://localhost:3000`
+
 
 ## Contribuições
 
