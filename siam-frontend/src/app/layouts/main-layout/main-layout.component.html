@@ -55,6 +55,17 @@
           Configurações
         </a>
       </li>
+      <li
+        nz-menu-item
+        role="button"
+        (click)="logout()"
+        (keydown.enter)="logout()"
+        (keyup.enter)="logout()"
+        tabindex="0"
+      >
+        <i nz-icon nzType="logout" class="custom-icon-size"></i>
+        Sair
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>
