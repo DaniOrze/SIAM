@@ -4,15 +4,16 @@ import { MedicationLog } from "../models/adherence.model";
 
 export const registerDose = async (req: Request, res: Response) => {
   const { medicationId, taken }: MedicationLog = req.body;
+  const userId = req.headers["user-id"];
 
   try {
     const client = await pool.connect();
     await client.query("BEGIN");
 
     await client.query(
-      `INSERT INTO medication_logs (medication_id, taken, date_taken)
-       VALUES ($1, $2, NOW())`,
-      [medicationId, taken]
+      `INSERT INTO medication_logs (medication_id, taken, date_taken, user_id)
+       VALUES ($1, $2, NOW(), $3)`,
+      [medicationId, taken, userId]
     );
 
     await client.query("COMMIT");
@@ -89,6 +90,7 @@ export const sendEmail = async (
 };
 
 export const getAdherenceData = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   try {
     const result = await pool.query(
       `SELECT m.name, 
@@ -96,7 +98,9 @@ export const getAdherenceData = async (req: Request, res: Response) => {
               COUNT(CASE WHEN NOT ml.taken THEN 1 END) AS missed_count
        FROM medications m
        LEFT JOIN medication_logs ml ON m.id = ml.medication_id
-       GROUP BY m.name`
+       WHERE ml.user_id = $1
+       GROUP BY m.name`,
+      [userId]
     );
 
     const adherenceData: {
@@ -112,6 +116,7 @@ export const getAdherenceData = async (req: Request, res: Response) => {
 };
 
 export const getMissedDosesByWeek = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   try {
     const result = await pool.query(
       `SELECT m.name, 
@@ -119,9 +124,10 @@ export const getMissedDosesByWeek = async (req: Request, res: Response) => {
               DATE_TRUNC('week', ml.date_taken) AS week
        FROM medications m
        LEFT JOIN medication_logs ml ON m.id = ml.medication_id
-       WHERE ml.taken = false
+       WHERE ml.taken = false AND ml.user_id = $1
        GROUP BY m.name, week
-       ORDER BY week`
+       ORDER BY week`,
+      [userId]
     );
 
     const missedDosesData: {
@@ -139,6 +145,7 @@ export const getMissedDosesByWeek = async (req: Request, res: Response) => {
 };
 
 export const getDailyConsumption = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   try {
     const startOfWeek = new Date();
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
@@ -156,9 +163,10 @@ export const getDailyConsumption = async (req: Request, res: Response) => {
        WHERE ml.taken = true
          AND ml.date_taken >= $1
          AND ml.date_taken <= $2
+         AND ml.user_id = $3
        GROUP BY m.name, day_of_week
        ORDER BY day_of_week`,
-      [startOfWeek, endOfWeek]
+      [startOfWeek, endOfWeek, userId]
     );
 
     const dailyConsumptionData: {
