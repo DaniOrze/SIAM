@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -6,6 +5,7 @@ import {
   HttpEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -19,9 +19,17 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token');
-    const authReq = token
-      ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
-      : req;
+    const userId = localStorage.getItem('userId');
+
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    if (userId) {
+      headers['User-Id'] = userId;
+    }
+
+    const authReq = req.clone({ setHeaders: headers });
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {

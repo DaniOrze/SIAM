@@ -106,16 +106,26 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-  const userId = parseInt(req.params.id);
+  const userId = req.headers["user-id"];
+  const requestedUserId = req.params.id;
+  const requestedUserIdQuery = parseInt(req.params.id);
 
   try {
     const client = await pool.connect();
+
+    if (requestedUserId !== userId) {
+      res
+        .status(403)
+        .json({
+          error: "Você não tem permissão para visualizar este usuário.",
+        });
+    }
 
     const result = await client.query(
       `SELECT full_name AS "fullName", nickname, email, phone_number AS "phoneNumber", cpf, birthdate, address, city, zip_code AS "zipCode", observations, username 
        FROM users 
        WHERE id = $1`,
-      [userId]
+      [requestedUserIdQuery]
     );
     client.release();
 
@@ -128,7 +138,10 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const editUser = async (req: Request, res: Response) => {
-  const userId = parseInt(req.params.id);
+  const userId = req.headers["user-id"];
+  const requestedUserId = req.params.id;
+  const requestedUserIdQuery = parseInt(req.params.id);
+
   const {
     fullName,
     nickname,
@@ -145,12 +158,18 @@ export const editUser = async (req: Request, res: Response) => {
   try {
     const client = await pool.connect();
 
+    if (requestedUserId !== userId) {
+      res
+        .status(403)
+        .json({ error: "Você não tem permissão para editar este usuário." });
+    }
+
     await client.query(
       `UPDATE users 
-       SET full_name = $1, nickname = $2, email = $3, phone_number = $4, 
-           cpf = $5, birthdate = $6, address = $7, city = $8, 
-           zip_code = $9, observations = $10
-       WHERE id = $11`,
+   SET full_name = $1, nickname = $2, email = $3, phone_number = $4, 
+       cpf = $5, birthdate = $6, address = $7, city = $8, 
+       zip_code = $9, observations = $10
+   WHERE id = $11`,
       [
         fullName,
         nickname || null,
@@ -162,7 +181,7 @@ export const editUser = async (req: Request, res: Response) => {
         city || null,
         zipCode || null,
         observations || null,
-        userId,
+        requestedUserIdQuery,
       ]
     );
 

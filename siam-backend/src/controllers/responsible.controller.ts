@@ -3,6 +3,7 @@ import pool from "../config/dbConfig";
 import { Responsible } from "../models/responsible.model";
 
 export const createResponsible = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   const {
     fullName,
     cpf,
@@ -21,8 +22,8 @@ export const createResponsible = async (req: Request, res: Response) => {
     await client.query("BEGIN");
 
     const result = await client.query(
-      `INSERT INTO responsibles (full_name, cpf, rg, birthdate, phone_number, email, address, city, zip_code, observations)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      `INSERT INTO responsibles (full_name, cpf, rg, birthdate, phone_number, email, address, city, zip_code, observations, user_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING id`,
       [
         fullName,
@@ -35,6 +36,7 @@ export const createResponsible = async (req: Request, res: Response) => {
         city || null,
         zipCode || null,
         observations || null,
+        userId,
       ]
     );
 
@@ -52,8 +54,13 @@ export const createResponsible = async (req: Request, res: Response) => {
 };
 
 export const getResponsibles = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
+
   try {
-    const result = await pool.query("SELECT * FROM responsibles");
+    const result = await pool.query(
+      `SELECT * FROM responsibles WHERE user_id = $1`,
+      [userId]
+    );
 
     res.status(200).json(result.rows);
   } catch (error) {
@@ -63,12 +70,13 @@ export const getResponsibles = async (req: Request, res: Response) => {
 };
 
 export const getResponsibleById = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   const responsibleId = req.params.id;
 
   try {
     const result = await pool.query(
-      "SELECT * FROM responsibles WHERE id = $1",
-      [responsibleId]
+      `SELECT * FROM responsibles WHERE id = $1 AND user_id = $2`,
+      [responsibleId, userId]
     );
 
     res.status(200).json(result.rows[0]);
@@ -79,6 +87,7 @@ export const getResponsibleById = async (req: Request, res: Response) => {
 };
 
 export const editResponsible = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   const {
     id,
     fullName,
@@ -100,7 +109,7 @@ export const editResponsible = async (req: Request, res: Response) => {
     await client.query(
       `UPDATE responsibles
        SET full_name = $1, cpf = $2, rg = $3, birthdate = $4, phone_number = $5, email = $6, address = $7, city = $8, zip_code = $9, observations = $10
-       WHERE id = $11`,
+       WHERE id = $11 AND user_id = $12`,
       [
         fullName,
         cpf,
@@ -113,6 +122,7 @@ export const editResponsible = async (req: Request, res: Response) => {
         zipCode || null,
         observations || null,
         id,
+        userId,
       ]
     );
 
@@ -127,15 +137,17 @@ export const editResponsible = async (req: Request, res: Response) => {
 };
 
 export const deleteResponsible = async (req: Request, res: Response) => {
+  const userId = req.headers["user-id"];
   const responsibleId = req.params.id;
 
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
-    await client.query("DELETE FROM responsibles WHERE id = $1", [
-      responsibleId,
-    ]);
+    await client.query(
+      "DELETE FROM responsibles WHERE id = $1 AND user_id = $2",
+      [responsibleId, userId]
+    );
 
     await client.query("COMMIT");
     client.release();
