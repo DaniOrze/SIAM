@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewUserComponent } from './new-user.component';
 import { HttpClientModule } from '@angular/common/http';
-import { provideNgxMask, IConfig } from 'ngx-mask';
+import { NgxMaskConfig, provideEnvironmentNgxMask } from 'ngx-mask'
 
-const maskConfig: Partial<IConfig> = {
+const maskConfig: Partial<NgxMaskConfig> = {
   validation: true,
 };
 
@@ -15,7 +15,7 @@ describe('NewUserComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NewUserComponent, HttpClientModule],
-      providers: [provideNgxMask(maskConfig)], 
+      providers: [provideEnvironmentNgxMask(maskConfig),],
     })
     .compileComponents();
 

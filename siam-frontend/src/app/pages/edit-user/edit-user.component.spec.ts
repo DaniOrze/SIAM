@@ -3,10 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditUserComponent } from './edit-user.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaskConfig, provideEnvironmentNgxMask } from 'ngx-mask'
 
-import { provideNgxMask, IConfig } from 'ngx-mask';
-
-const maskConfig: Partial<IConfig> = {
+const maskConfig: Partial<NgxMaskConfig> = {
   validation: true,
 };
 
@@ -17,7 +16,7 @@ describe('EditUserComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [EditUserComponent, HttpClientModule, RouterTestingModule],
-      providers: [provideNgxMask(maskConfig)],
+      providers: [provideEnvironmentNgxMask(maskConfig),],
     })
     .compileComponents();
 
