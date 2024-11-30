@@ -281,27 +281,28 @@ describe("Medication Controller with Authentication", () => {
     it("deve capturar e logar erro no console ao tentar obter medicamento e retornar erro 500", async () => {
       const mockError = new Error("Erro simulado ao obter medicamento");
       (pool.query as jest.Mock).mockRejectedValue(mockError);
-
+    
       const medicationId = 1;
-
+    
       const consoleSpy = jest
         .spyOn(console, "error")
         .mockImplementation(() => {});
-
+    
       const response = await request(app)
         .get(`/medication/get-medication/${medicationId}`)
         .set("Authorization", `Bearer ${generateTestToken()}`);
-
+    
       expect(response.status).toBe(500);
-      expect(response.body.error).toBe("Erro ao obter medicamentos.");
-
+      expect(response.body.error).toBe("Erro ao obter medicamento.");
+    
       expect(consoleSpy).toHaveBeenCalledWith(
-        "Erro ao obter medicamentos:",
+        "Erro ao obter medicamento:",
         mockError
       );
-
+    
       consoleSpy.mockRestore();
     });
+    
 
     it("deve retornar erro 401 quando o token não for fornecido", async () => {
       const medicationId = 1;

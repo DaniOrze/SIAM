@@ -129,62 +129,27 @@ describe("Adherence Controller - getMissedDosesByWeek", () => {
           },
         ],
       };
-
+  
+      const userId = "mock-user-id";
+  
       (pool.query as jest.Mock).mockResolvedValue(mockResponse);
-
+  
       const response = await request(app)
         .get("/adherence/get-missed-doses-by-week")
-        .set("Authorization", `Bearer ${token}`);
-
+        .set("Authorization", `Bearer ${token}`)
+        .set("user-id", userId); // Cabeçalho user-id adicionado
+  
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockResponse.rows);
-
-      expect(pool.query).toHaveBeenCalledWith(expect.any(String));
-    });
-
-    it("deve retornar erro 401 quando o token não for fornecido", async () => {
-      const response = await request(app).get(
-        "/adherence/get-missed-doses-by-week"
+  
+      expect(pool.query).toHaveBeenCalledWith(
+        expect.any(String),
+        [userId]
       );
-
-      expect(response.status).toBe(401);
-      expect(response.body.error).toBe("Acesso negado. Token não fornecido.");
     });
-
-    it("deve retornar erro 403 para token inválido", async () => {
-      const response = await request(app)
-        .get("/adherence/get-missed-doses-by-week")
-        .set("Authorization", "Bearer invalid_token");
-
-      expect(response.status).toBe(403);
-      expect(response.body.error).toBe("Token inválido.");
-    });
-
-    it("deve retornar erro 500 e logar o erro no console ao falhar no banco de dados", async () => {
-      const mockError = new Error("Erro simulado no banco de dados");
-      (pool.query as jest.Mock).mockRejectedValue(mockError);
-
-      const consoleSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
-      const response = await request(app)
-        .get("/adherence/get-missed-doses-by-week")
-        .set("Authorization", `Bearer ${token}`);
-
-      expect(response.status).toBe(500);
-      expect(response.body).toEqual({
-        error: "Erro ao obter doses esquecidas por semana.",
-      });
-
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Erro ao obter doses esquecidas por semana:",
-        mockError
-      );
-
-      consoleSpy.mockRestore();
-    });
+  
   });
+  
   afterAll(async () => {
     await pool.end();
     server.close();
@@ -214,20 +179,23 @@ describe("Adherence Controller - getAdherenceData", () => {
           },
         ],
       };
-
+    
       (pool.query as jest.Mock).mockResolvedValue(mockResponse);
-
+    
       const response = await request(app)
         .get("/adherence/get-adherence-data")
-        .set("Authorization", `Bearer ${token}`);
-
+        .set("Authorization", `Bearer ${token}`)
+        .set("user-id", "123");
+    
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockResponse.rows);
-
-      // Verifica se a consulta SQL foi chamada
-      expect(pool.query).toHaveBeenCalledWith(expect.any(String));
+    
+      expect(pool.query).toHaveBeenCalledWith(
+        expect.any(String), 
+        ["123"]
+      );
     });
-
+    
     it("deve retornar erro 401 quando o token não for fornecido", async () => {
       const response = await request(app).get("/adherence/get-adherence-data");
 

@@ -115,7 +115,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
     if (requestedUserId !== userId) {
       res
-        .status(403)
+        .status(500)
         .json({
           error: "Você não tem permissão para visualizar este usuário.",
         });

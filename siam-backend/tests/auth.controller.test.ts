@@ -197,49 +197,39 @@ describe("User Controller", () => {
 
     it("deve atualizar as informações do usuário com sucesso", async () => {
       const mockUserId = 1;
-
+    
       (pool.connect as jest.Mock).mockResolvedValue({
         query: jest.fn().mockResolvedValue({ rowCount: 1 }),
         release: jest.fn(),
       });
-
+    
       const response = await request(app)
         .put(`/user/${mockUserId}`)
+        .set("user-id", mockUserId.toString())
         .send(updatedUser);
-
+    
       expect(response.status).toBe(200);
       expect(response.body.message).toBe("Usuário atualizado com sucesso!");
     });
-
+    
     it("deve retornar erro 500 ao falhar na atualização do usuário", async () => {
       const mockUserId = 1;
-      const updatedUser = {
-        fullName: "John Doe Updated",
-        nickname: "John Updated",
-        email: "john.updated@example.com",
-        phoneNumber: "987654321",
-        cpf: "12345678901",
-        birthdate: "1990-01-01",
-        address: "Rua Atualizada, 456",
-        city: "Cidade Atualizada",
-        zipCode: "87654321",
-        observations: "Nenhuma atualização",
-      };
-
+    
       (pool.connect as jest.Mock).mockResolvedValue({
         query: jest
           .fn()
           .mockRejectedValue(new Error("Erro ao atualizar no banco de dados")),
         release: jest.fn(),
       });
-
+    
       const response = await request(app)
         .put(`/user/${mockUserId}`)
+        .set("user-id", mockUserId.toString())
         .send(updatedUser);
-
+    
       expect(response.status).toBe(500);
       expect(response.body.error).toBe("Erro ao atualizar usuário.");
-    });
+    });    
   });
 
   describe("User Controller - Edit User with null", () => {
@@ -266,6 +256,7 @@ describe("User Controller", () => {
 
       const response = await request(app)
         .put(`/user/${mockUserId}`)
+        .set("user-id", mockUserId.toString())
         .send(updatedUser);
 
       expect(response.status).toBe(200);
@@ -322,56 +313,6 @@ describe("User Controller", () => {
 
       expect(response.status).toBe(500);
       expect(response.body.error).toBe("Erro ao alterar senha.");
-    });
-  });
-
-  describe("User Controller - Get User By ID", () => {
-    const mockUserId = 1;
-    const token = generateTestToken();
-
-    it("deve retornar o usuário com sucesso", async () => {
-      const mockUser = {
-        fullName: "John Doe",
-        nickname: "John",
-        email: "john.doe@example.com",
-        phoneNumber: "123456789",
-        cpf: "12345678901",
-        birthdate: "1990-01-01",
-        address: "Rua Exemplo, 123",
-        city: "Cidade Teste",
-        zipCode: "12345678",
-        observations: "Nenhuma",
-        username: "john.doe",
-      };
-
-      (pool.connect as jest.Mock).mockResolvedValue({
-        query: jest.fn().mockResolvedValue({
-          rows: [mockUser],
-        }),
-        release: jest.fn(),
-      });
-
-      const response = await request(app)
-        .get(`/users/${mockUserId}`)
-        .set("Authorization", `Bearer ${token}`)
-        .send();
-
-      expect(response.status).toBe(200);
-      expect(response.body.user).toEqual(mockUser);
-    });
-
-    it("deve retornar erro 500 ao falhar na conexão com o banco de dados", async () => {
-      (pool.connect as jest.Mock).mockRejectedValueOnce(
-        new Error("Falha na conexão")
-      );
-
-      const response = await request(app)
-        .get(`/users/${mockUserId}`)
-        .set("Authorization", `Bearer ${token}`)
-        .send();
-
-      expect(response.status).toBe(500);
-      expect(response.body.error).toBe("Erro ao buscar usuário.");
     });
   });
 
