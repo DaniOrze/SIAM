@@ -11,11 +11,13 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzIconModule, provideNzIconsPatch } from 'ng-zorro-antd/icon';
 import { MedicationService } from '../../services/medication.service';
 import { Medication } from '../../models/medication.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+
+import { EditOutline, DeleteOutline } from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-medication-management',
@@ -35,6 +37,12 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzIconModule,
     NzModalModule,
   ],
+  providers: [
+    provideNzIconsPatch([
+    EditOutline,
+    DeleteOutline
+  ]),
+],
   templateUrl: './medication-management.component.html',
   styleUrls: ['./medication-management.component.css'],
 })
