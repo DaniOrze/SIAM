@@ -83,7 +83,11 @@ O **SIAM (Sistema Inteligente de Administração de Medicamentos)** é um projet
 
 ## Diagrama de Arquitetura
 
-**FALTA FAZER**
+<p align="center">
+  <p>
+    <img src="src/assets/diagrama_colorido.png"/>
+  </p>
+</p>
 
 ## Pré-requisitos
 
