@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzIconModule, provideNzIconsPatch } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { AuthService } from '../../services/auth.service';
+
+import { DashboardOutline, FormOutline, NotificationOutline, MonitorOutline, FileTextOutline, UserOutline, SettingOutline, LogoutOutline } from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-main-layout',
@@ -17,13 +18,22 @@ import { AuthService } from '../../services/auth.service';
     NzLayoutModule,
     NzMenuModule,
   ],
+  providers: [
+    provideNzIconsPatch([DashboardOutline,
+    FormOutline,
+    NotificationOutline,
+    MonitorOutline,
+    FileTextOutline,
+    UserOutline,
+    SettingOutline,
+    LogoutOutline,])],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css',
 })
 export class MainLayoutComponent {
   isCollapsed = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   logout(): void {
     localStorage.removeItem('token');

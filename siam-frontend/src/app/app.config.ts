@@ -19,17 +19,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 
-import {
-  DashboardOutline,
-  FormOutline,
-  NotificationOutline,
-  MonitorOutline,
-  FileTextOutline,
-  UserOutline,
-  SettingOutline,
-  MenuFoldOutline,
-  MenuUnfoldOutline,
-} from '@ant-design/icons-angular/icons';
+import { DashboardOutline, FormOutline, NotificationOutline, MonitorOutline, FileTextOutline, UserOutline, SettingOutline, LogoutOutline, EditOutline, DeleteOutline } from '@ant-design/icons-angular/icons';
+
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 registerLocaleData(pt);
@@ -46,8 +37,9 @@ export const appConfig: ApplicationConfig = {
       FileTextOutline,
       UserOutline,
       SettingOutline,
-      MenuFoldOutline,
-      MenuUnfoldOutline,
+      LogoutOutline,
+      EditOutline,
+      DeleteOutline
     ]),
     provideNzI18n(pt_BR),
     importProvidersFrom(FormsModule),

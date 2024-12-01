@@ -9,11 +9,13 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzIconModule, provideNzIconsPatch } from 'ng-zorro-antd/icon';
 import { AlertService } from '../../services/alert.service';
 import { Alert } from '../../models/alert.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+
+import { EditOutline, DeleteOutline } from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-alerts',
@@ -34,6 +36,12 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzIconModule,
     NzModalModule,
   ],
+  providers: [
+    provideNzIconsPatch([
+    EditOutline,
+    DeleteOutline
+  ]),
+],
   templateUrl: './alerts.component.html',
   styleUrl: './alerts.component.css',
 })
