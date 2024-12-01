@@ -6,18 +6,19 @@
 
 const char* ssid = "NAXI-ORZECHOWSKI-2G";
 const char* password = "antajuda";
-const char* serverUrl = "http://192.168.100.82:3000/get-medications";
-const char* registerDoseUrl = "http://192.168.100.82:3000/register-dose";
+const char* serverUrl = "http://192.168.100.82:3000/medication/get-medications";
+const char* registerDoseUrl = "http://192.168.100.82:3000/adherence/register-dose";
 
-const int ledPin = 15;       // LED
-const int speakerPin = 2;    // Speaker
-const int trigPin = 5;       // Sensor
-const int echoPin = 18;      // Sensor
-const int servoPin = 19;     // Pino do servo
-const int photoTransistorPin = 34; // Pino do photo transistor (entrada analógica)
+const int ledPin = 15;              // LED
+const int speakerPin = 2;           // Speaker
+const int trigPin = 5;              // Sensor
+const int echoPin = 18;             // Sensor
+const int servoPin = 19;            // Pino do servo
+const int photoTransistorPin = 34;  // Pino do photo transistor (entrada analógica)
 
 WiFiConnection wifi(ssid, password);
 Servo myServo;
+String authToken = "";
 bool ledOn = false;
 
 void getMedicationsList();
@@ -36,6 +37,14 @@ void setup() {
 
   digitalWrite(ledPin, LOW);
   wifi.connect();
+
+  authToken = login();
+  if (authToken.isEmpty()) {
+    Serial.println("Falha ao obter token. Verifique suas credenciais.");
+  } else {
+    Serial.println("Login realizado com sucesso!");
+  }
+
   configTime(-3 * 3600, 0, "pool.ntp.org");  // horário de Brasília
 
   myServo.attach(servoPin);
@@ -58,6 +67,11 @@ void getMedicationsList() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin(serverUrl);
+    http.addHeader("Authorization", "Bearer " + authToken);
+
+    http.addHeader("user-id", "2");
+
+
     int httpResponseCode = http.GET();
 
     if (httpResponseCode > 0) {
@@ -114,20 +128,20 @@ void checkMedicationSchedule(const JsonArray& medications) {
 
           myServo.attach(servoPin);
 
-            while (!isMedicationDropped()) {
-              for (int pos = 0; pos <= 180; pos += 1) {
-                myServo.write(pos);
-                delay(15);
-                if (isMedicationDropped()) break;
-              }
-              for (int pos = 180; pos >= 0; pos -= 1) {
-                myServo.write(pos);
-                delay(15);
-                if (isMedicationDropped()) break;
-              }
+          while (!isMedicationDropped()) {
+            for (int pos = 0; pos <= 180; pos += 1) {
+              myServo.write(pos);
+              delay(15);
+              if (isMedicationDropped()) break;
             }
+            for (int pos = 180; pos >= 0; pos -= 1) {
+              myServo.write(pos);
+              delay(15);
+              if (isMedicationDropped()) break;
+            }
+          }
 
-            myServo.write(90);  // Retorna o servo para a posição inicial
+          myServo.write(90);  // Retorna o servo para a posição inicial
 
           myServo.detach();
 
@@ -209,14 +223,23 @@ void registerDose(int medicationId, bool taken) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin(registerDoseUrl);
+    http.addHeader("Authorization", "Bearer " + authToken);
+    http.addHeader("user-id", "2");
     http.addHeader("Content-Type", "application/json");
+
+    Serial.println(authToken);
 
     StaticJsonDocument<200> doc;
     doc["medicationId"] = medicationId;
     doc["taken"] = taken;
 
+    Serial.println(medicationId);
+    Serial.println(taken);
+
     String requestBody;
     serializeJson(doc, requestBody);
+
+    Serial.println(requestBody);
 
     int httpResponseCode = http.POST(requestBody);
 
@@ -230,4 +253,40 @@ void registerDose(int medicationId, bool taken) {
 
     http.end();
   }
+}
+
+String login() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin("http://192.168.100.82:3000/login");
+    http.addHeader("Content-Type", "application/json");
+
+    StaticJsonDocument<200> doc;
+    doc["username"] = "daniorze";
+    doc["password"] = "daniorze1";
+
+    String requestBody;
+    serializeJson(doc, requestBody);
+
+    int httpResponseCode = http.POST(requestBody);
+
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      StaticJsonDocument<512> responseDoc;
+      DeserializationError error = deserializeJson(responseDoc, response);
+
+      if (!error && responseDoc.containsKey("token")) {
+        String token = responseDoc["token"].as<String>();
+        Serial.println("Token obtido: " + token);
+        http.end();
+        return token;
+      } else {
+        Serial.println("Erro ao obter o token: " + response);
+      }
+    } else {
+      Serial.println("Erro na requisição de login: " + String(httpResponseCode));
+    }
+    http.end();
+  }
+  return "";
 }
