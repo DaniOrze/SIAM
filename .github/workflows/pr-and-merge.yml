@@ -32,4 +32,5 @@ jobs:
         working-directory: ${{ matrix.project-path }}
         run: |
           npm install
+          export $(cat ../.env.example | xargs)
           npm test
