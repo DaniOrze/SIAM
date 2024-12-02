@@ -65,8 +65,7 @@ export const sendEmail = async (
   const mg = mailgun.client({
     username: "api",
     key:
-      process.env.MAILGUN_API_KEY ||
-      "a240c7412dc7951b3dc30d4c943b7890-79295dd0-af0a683f",
+      process.env.MAILGUN_APIKEY,
   });
 
   const subject = `Alerta: Medicamento ${medicationName} não administrado`;
