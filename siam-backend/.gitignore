@@ -2,8 +2,4 @@
 /node_modules
 /coverage
 
-dbConfig.ts
-jwtConfig.ts
-swagger.ts
-
 /coverage
