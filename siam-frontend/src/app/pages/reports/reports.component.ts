@@ -34,7 +34,7 @@ export class ReportsComponent implements OnInit {
     this.loadMedications();
   }
 
-  private loadMedications(): void {
+  public loadMedications(): void {
     this.medicationService.getMedicamentos().subscribe({
       next: (data) => {
         this.medicamentos = data;
@@ -111,7 +111,7 @@ export class ReportsComponent implements OnInit {
     XLSX.writeFile(workbook, 'relatorio_medicamentos.xlsx');
   }
 
-  private convertToCSV(data: CsvMedication[]): string {
+  public convertToCSV(data: CsvMedication[]): string {
     const headers = Object.keys(data[0]).join(',') + '\n';
     const rows = data
       .map((row) =>
