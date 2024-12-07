@@ -124,7 +124,13 @@ describe('MedicationManagementComponent', () => {
   });
 
   it('should call deleteMedication and remove the medicamento from the list on success', () => {
-    const medicamento: Medication = { id: 1, name: 'Aspirina', dosage: 500, startdate: '2024-01-01', administrationschedules: [] };
+    const medicamento: Medication = {
+      id: 1,
+      name: 'Aspirina',
+      dosage: 500,
+      startdate: '2024-01-01',
+      administrationschedules: [],
+    };
     component.selectedMedicamento = medicamento;
     component.medicamentos = [medicamento];
 
@@ -132,41 +138,68 @@ describe('MedicationManagementComponent', () => {
 
     component.confirmarDelete();
 
-    expect(medicationServiceMock.deleteMedication).toHaveBeenCalledWith(medicamento.id!);
+    expect(medicationServiceMock.deleteMedication).toHaveBeenCalledWith(
+      medicamento.id!
+    );
     expect(component.medicamentos).not.toContain(medicamento);
-    expect(messageServiceMock.success).toHaveBeenCalledWith('Medicamento excluído com sucesso!');
+    expect(messageServiceMock.success).toHaveBeenCalledWith(
+      'Medicamento excluído com sucesso!'
+    );
     expect(component.isDeleteModalVisible).toBeFalse();
     expect(component.selectedMedicamento).toBeNull();
   });
 
   it('should handle error when deleting a medicamento', () => {
-    const medicamento: Medication = { id: 1, name: 'Aspirina', dosage: 500, startdate: '2024-01-01', administrationschedules: [] };
+    const medicamento: Medication = {
+      id: 1,
+      name: 'Aspirina',
+      dosage: 500,
+      startdate: '2024-01-01',
+      administrationschedules: [],
+    };
     component.selectedMedicamento = medicamento;
     component.medicamentos = [medicamento];
-  
+
     const errorResponse = new Error('Erro simulado ao deletar medicamento');
-  
-    medicationServiceMock.deleteMedication.and.returnValue(throwError(() => errorResponse));
-  
+
+    medicationServiceMock.deleteMedication.and.returnValue(
+      throwError(() => errorResponse)
+    );
+
     spyOn(console, 'error');
-  
+
     component.confirmarDelete();
-  
-    expect(medicationServiceMock.deleteMedication).toHaveBeenCalledWith(medicamento.id!);
-    expect(console.error).toHaveBeenCalledWith('Erro ao deletar medicamento:', errorResponse);
-    expect(messageServiceMock.error).toHaveBeenCalledWith('Erro ao excluir o medicamento. Tente novamente.');
+
+    expect(medicationServiceMock.deleteMedication).toHaveBeenCalledWith(
+      medicamento.id!
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      'Erro ao deletar medicamento:',
+      errorResponse
+    );
+    expect(messageServiceMock.error).toHaveBeenCalledWith(
+      'Erro ao excluir o medicamento. Tente novamente.'
+    );
     expect(component.isDeleteModalVisible).toBeFalse();
   });
 
   it('should log an error and return when selectedMedicamento id is undefined', () => {
-    const medicamento: Medication = { id: undefined, name: 'Aspirina', dosage: 500, startdate: '2024-01-01', administrationschedules: [] };
+    const medicamento: Medication = {
+      id: undefined,
+      name: 'Aspirina',
+      dosage: 500,
+      startdate: '2024-01-01',
+      administrationschedules: [],
+    };
     component.selectedMedicamento = medicamento;
-  
+
     spyOn(console, 'error');
-  
+
     component.confirmarDelete();
-  
-    expect(console.error).toHaveBeenCalledWith('ID do medicamento não está definido.');
+
+    expect(console.error).toHaveBeenCalledWith(
+      'ID do medicamento não está definido.'
+    );
     expect(medicationServiceMock.deleteMedication).not.toHaveBeenCalled();
   });
 });
