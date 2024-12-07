@@ -24,6 +24,14 @@ const router = Router();
  *       - Medication
  *     summary: Cria um novo medicamento
  *     description: Adiciona um novo medicamento à base de dados.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -69,6 +77,14 @@ router.post("/new-medications", createMedication);
  *     tags:
  *       - Medication
  *     summary: Retorna uma lista de medicamentos
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Uma lista de medicamentos
@@ -124,6 +140,13 @@ router.get("/get-medications", getMedications);
  *         description: ID do medicamento a ser deletado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Medicamento deletado com sucesso
@@ -147,6 +170,13 @@ router.delete("/delete-medications/:id", deleteMedication);
  *         description: ID do medicamento a ser editado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -200,6 +230,13 @@ router.put("/edit-medications/:id", editMedication);
  *         description: ID do medicamento a ser obtido
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Detalhes do medicamento
