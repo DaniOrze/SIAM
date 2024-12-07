@@ -23,4 +23,17 @@ describe('MainLayoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should clear localStorage and navigate to /login on logout', () => {
+    const routerSpy = spyOn(component['router'], 'navigate');
+    const localStorageRemoveSpy = spyOn(localStorage, 'removeItem');
+  
+    component.logout();
+  
+    expect(localStorageRemoveSpy).toHaveBeenCalledWith('token');
+    expect(localStorageRemoveSpy).toHaveBeenCalledWith('userId');
+  
+    expect(routerSpy).toHaveBeenCalledWith(['/login']);
+  });
+  
 });
