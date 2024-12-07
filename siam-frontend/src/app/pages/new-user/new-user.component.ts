@@ -53,11 +53,11 @@ export class NewUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.newUserForm = this.fb.group({
-      fullName: ['', Validators.required],
+      full_name: ['', Validators.required],
       cpf: ['', Validators.required],
       rg: [''],
       birthdate: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phone_number: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: [''],
       city: [''],
