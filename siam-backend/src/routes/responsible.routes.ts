@@ -23,6 +23,14 @@ const router = express.Router();
  *     tags: [Responsible]
  *     summary: Cria um novo responsável
  *     description: Adiciona um novo responsável ao sistema.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -71,6 +79,14 @@ router.post("/new-responsibles", createResponsible);
  *     tags: [Responsible]
  *     summary: Retorna uma lista de responsáveis
  *     description: Obtém uma lista de todos os responsáveis cadastrados.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Lista de responsáveis retornada com sucesso
@@ -118,6 +134,13 @@ router.get("/get-responsibles", getResponsibles);
  *         description: ID do responsável a ser obtido
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Detalhes do responsável retornados com sucesso
@@ -163,6 +186,13 @@ router.get("/get-responsible/:id", getResponsibleById);
  *         description: ID do responsável a ser editado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -220,6 +250,13 @@ router.put("/edit-responsibles/:id", editResponsible);
  *         description: ID do responsável a ser deletado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Responsável deletado com sucesso

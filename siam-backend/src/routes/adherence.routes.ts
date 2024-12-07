@@ -23,6 +23,14 @@ const router = Router();
  *       - Adherence
  *     summary: Registra uma dose de medicamento
  *     description: Adiciona uma entrada de dose tomada ou esquecida no log de medicamentos.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -52,6 +60,14 @@ router.post("/register-dose", registerDose);
  *       - Adherence
  *     summary: Retorna dados de adesão ao tratamento
  *     description: Obtém informações sobre as doses tomadas e esquecidas de todos os medicamentos.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Dados de adesão retornados com sucesso
@@ -84,6 +100,14 @@ router.get("/get-adherence-data", getAdherenceData);
  *       - Adherence
  *     summary: Retorna doses esquecidas por semana
  *     description: Obtém um relatório de doses esquecidas por semana.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Dados de doses esquecidas retornados com sucesso
@@ -116,6 +140,14 @@ router.get("/get-missed-doses-by-week", getMissedDosesByWeek);
  *       - Adherence
  *     summary: Retorna o consumo diário de medicamentos
  *     description: Obtém informações sobre o consumo diário de medicamentos.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Dados de consumo diário retornados com sucesso

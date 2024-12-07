@@ -24,6 +24,14 @@ const router = Router();
  *       - Alert
  *     summary: Cria um novo alerta
  *     description: Adiciona um novo alerta à base de dados.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -59,6 +67,14 @@ router.post("/new-alerts", createAlert);
  *       - Alert
  *     summary: Retorna uma lista de alertas
  *     description: Obtém uma lista de alertas cadastrados no sistema.
+ *     parameters:
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Uma lista de alertas
@@ -105,6 +121,13 @@ router.get("/get-alerts", getAlerts);
  *         description: ID do alerta a ser deletado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Alerta deletado com sucesso
@@ -128,6 +151,13 @@ router.delete("/delete-alerts/:id", deleteAlert);
  *         description: ID do alerta a ser editado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -170,6 +200,13 @@ router.put("/edit-alerts/:id", editAlert);
  *         description: ID do alerta a ser obtido
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Detalhes do alerta

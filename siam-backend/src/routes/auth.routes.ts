@@ -125,6 +125,13 @@ router.post("/login", loginUser);
  *         description: ID do usuário a ser recuperado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     responses:
  *       200:
  *         description: Usuário encontrado com sucesso
@@ -180,6 +187,13 @@ router.get("/users/:id", getUserById);
  *         description: ID do usuário a ser atualizado
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
@@ -240,6 +254,13 @@ router.put("/user/:id", editUser);
  *         description: ID do usuário cuja senha será alterada
  *         schema:
  *           type: integer
+ *       - in: header
+ *         name: user_id
+ *         required: true
+ *         description: ID do usuário autenticado.
+ *         schema:
+ *           type: string
+ *           example: "123"
  *     requestBody:
  *       required: true
  *       content:
