@@ -25,7 +25,7 @@ const router = express.Router();
  *     description: Adiciona um novo responsável ao sistema.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -81,7 +81,7 @@ router.post("/new-responsibles", createResponsible);
  *     description: Obtém uma lista de todos os responsáveis cadastrados.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -135,7 +135,7 @@ router.get("/get-responsibles", getResponsibles);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -187,7 +187,7 @@ router.get("/get-responsible/:id", getResponsibleById);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -251,7 +251,7 @@ router.put("/edit-responsibles/:id", editResponsible);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:

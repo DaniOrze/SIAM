@@ -26,7 +26,7 @@ const router = Router();
  *     description: Adiciona um novo medicamento à base de dados.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -79,7 +79,7 @@ router.post("/new-medications", createMedication);
  *     summary: Retorna uma lista de medicamentos
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -141,7 +141,7 @@ router.get("/get-medications", getMedications);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -171,7 +171,7 @@ router.delete("/delete-medications/:id", deleteMedication);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -231,7 +231,7 @@ router.put("/edit-medications/:id", editMedication);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
