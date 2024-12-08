@@ -25,7 +25,7 @@ const router = Router();
  *     description: Adiciona uma entrada de dose tomada ou esquecida no log de medicamentos.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:

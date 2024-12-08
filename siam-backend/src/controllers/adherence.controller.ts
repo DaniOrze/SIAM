@@ -77,8 +77,8 @@ export const sendEmail = async (
   `;
 
   mg.messages
-    .create("sandboxc4c09752b9fd4cbdb4538a264b5f641b.mailgun.org", {
-      from: "Sistema de Monitoramento <mailgun@sandboxc4c09752b9fd4cbdb4538a264b5f641b.mailgun.org>",
+    .create(process.env.MAILGUN_EMAIL, {
+      from: `Sistema de Monitoramento <mailgun@${process.env.MAILGUN_EMAIL}>`,
       to: [email],
       subject,
       text: textContent,
