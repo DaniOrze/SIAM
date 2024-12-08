@@ -62,7 +62,7 @@ router.post("/register-dose", registerDose);
  *     description: Obtém informações sobre as doses tomadas e esquecidas de todos os medicamentos.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -102,7 +102,7 @@ router.get("/get-adherence-data", getAdherenceData);
  *     description: Obtém um relatório de doses esquecidas por semana.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -142,7 +142,7 @@ router.get("/get-missed-doses-by-week", getMissedDosesByWeek);
  *     description: Obtém informações sobre o consumo diário de medicamentos.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:

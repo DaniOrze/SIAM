@@ -26,7 +26,7 @@ const router = Router();
  *     description: Adiciona um novo alerta à base de dados.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -69,7 +69,7 @@ router.post("/new-alerts", createAlert);
  *     description: Obtém uma lista de alertas cadastrados no sistema.
  *     parameters:
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -122,7 +122,7 @@ router.get("/get-alerts", getAlerts);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -152,7 +152,7 @@ router.delete("/delete-alerts/:id", deleteAlert);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -201,7 +201,7 @@ router.put("/edit-alerts/:id", editAlert);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:

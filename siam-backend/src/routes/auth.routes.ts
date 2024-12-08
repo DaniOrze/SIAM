@@ -126,7 +126,7 @@ router.post("/login", loginUser);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -188,7 +188,7 @@ router.get("/users/:id", getUserById);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
@@ -255,7 +255,7 @@ router.put("/user/:id", editUser);
  *         schema:
  *           type: integer
  *       - in: header
- *         name: user_id
+ *         name: user-id
  *         required: true
  *         description: ID do usuário autenticado.
  *         schema:
