@@ -4,10 +4,10 @@
 #include <time.h>
 #include <ESP32Servo.h>  // Biblioteca do servo
 
-const char* ssid = "NAXI-ORZECHOWSKI-2G";
-const char* password = "antajuda";
-const char* serverUrl = "http://192.168.100.82:3000/medication/get-medications";
-const char* registerDoseUrl = "http://192.168.100.82:3000/adherence/register-dose";
+const char* ssid = "iPhone de Daniele (2)";
+const char* password = "oidani2018";
+const char* serverUrl = "http://172.20.10.9:3000/medication/get-medications";
+const char* registerDoseUrl = "http://172.20.10.9:3000/adherence/register-dose";
 
 const int ledPin = 15;              // LED
 const int speakerPin = 2;           // Speaker
@@ -258,7 +258,7 @@ void registerDose(int medicationId, bool taken) {
 String login() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin("http://192.168.100.82:3000/login");
+    http.begin("http://172.20.10.9:3000/login");
     http.addHeader("Content-Type", "application/json");
 
     StaticJsonDocument<200> doc;
