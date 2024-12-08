@@ -209,6 +209,25 @@ docker compose up -d
 - A aplicação frontend será iniciada no navegador padrão em: `http://localhost:4200`
 - A aplicação backend será iniciada no navegador padrão em: `http://localhost:3000`
 
+## Cobertura de Testes
+
+### Backend
+
+- A cobertura de testes do backend alcançou **90%**, refletindo um alto nível de confiabilidade e robustez na API e na lógica de negócios.
+
+Para conferir, basta rodar o seguinte comando na pasta do backend:
+```bash
+npm test
+```
+
+### Frontend
+
+- A cobertura de testes do frontend atingiu **82%**, garantindo uma validação consistente das funcionalidades implementadas.
+
+Para conferir, basta rodar o seguinte comando na pasta do frontend:
+```bash
+npm test
+```
 
 ## Contribuições
 
